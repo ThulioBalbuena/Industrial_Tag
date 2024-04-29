@@ -1,0 +1,59 @@
+{
+  "name": "qrcode",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mdi/js": "^7.0.96",
+    "@mdi/react": "^1.6.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "aos": "^2.3.4",
+    "jspdf": "2.3.1",
+    "jspdf-autotable": "^3.5.25",
+    "modern-react-qr-reader": "^1.0.12",
+    "namor": "^2.0.4",
+    "papaparse": "5.2.0",
+    "qrcode.react": "^3.1.0",
+    "react": "17.0.0",
+    "react-dom": "17.0.0",
+    "react-is": "^18.2.0",
+    "react-qr-barcode-scanner": "1.0.6",
+    "react-qr-reader": "2.2.1",
+    "react-qr-scanner": "^1.0.0-alpha.11",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "5.0.1",
+    "react-table": "7.3.2",
+    "react-table-plugins": "1.0.0",
+    "react-web-qr-reader": "^1.0.4",
+    "serve": "^14.0.1",
+    "styled-components": "5.1.1",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
