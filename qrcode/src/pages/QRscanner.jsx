@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Fab, TextField } from "@material-ui/core";
 import QrScan from "react-qr-reader";
-import jsPDF from "jspdf";
 import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import QRcode from "qrcode.react";
