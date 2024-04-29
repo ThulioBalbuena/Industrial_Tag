@@ -1,4 +1,3 @@
-// QRscanner.jsx
 import React, { useState } from "react";
 import { Fab, TextField } from "@material-ui/core";
 import QrScan from "react-qr-reader";
@@ -31,10 +30,10 @@ function QRscanner() {
     var nome = 0;
     const date = new Date().toLocaleDateString();
     var check;
-    var quantrest; // Definir quantrest aqui
+    var quantrest = parseFloat(resposta[4]); // Inicializar quantrest aqui
     console.log(quantrest);
     var auxx = 0;
-    var ajuda = quantrest / pacote;
+    var ajuda = quantrest / pacote; // Usar quantrest inicializada
     var valor;
     var lote, fab;
 
@@ -161,4 +160,3 @@ function QRscanner() {
 }
 
 export default QRscanner;
-
