@@ -184,29 +184,21 @@ function QRscanner() {
 
           // Adicionando o QR Code ao PDF
           const qrImageData = document.getElementById("myqr").toDataURL("image/png");
-          doc.addImage(qrImageData, "PNG", 78, 20, 22, 22);
+          doc.addImage(qrImageData, "PNG", 77, 19, 15, 15); // Largura e altura ajustadas para 15
         }
         i = i + check - 1;
         if (quantrest === 0 && i === pacote - 1) {
           doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
           alert("Pdfs gerados com sucesso!");
-        } else if (quantrest !== 0 && i === pacote - 1) {
+      } else if (quantrest !== 0 && i === pacote - 1) {
           alert(
-            "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
+              "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
           );
-          i = pacote;
           window.location.reload();
-        }
-      } else if (quantrest === 0 || quantrest < 0) {
-        alert(
-          "Erro ao gerar pdfs: Quantidade de pacotes não confere com a quantidade de itens!"
-        );
-        i = pacote;
-        window.location.reload();
       }
     }
   };
-
+  };
   return (
     <div>
       <Link to="/">
