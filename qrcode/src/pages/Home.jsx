@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 import "./logo.css";
 import AOS from 'aos';
 import * as React from 'react';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-
 
 function Home() {
     AOS.init();
