@@ -1,10 +1,10 @@
-// EtiquetaModel.jsx
 import jsPDF from "jspdf";
 
 function generatePDF(qrscan, pacote, auxx, valor, fab, lote, date) {
   function getValue(string, j) {
     return string.split(/[}|{]+/)[j];
   }
+
   var resposta = new Array(7);
   for (var t = 0; t < 8; t++) {
     resposta[t] = getValue(qrscan, t);
@@ -16,17 +16,13 @@ function generatePDF(qrscan, pacote, auxx, valor, fab, lote, date) {
   }
 
   var quantrest = resposta[4];
-  console.log(quantrest);
 
   if (quantrest.includes(".") === false && quantrest.includes(",")) {
     quantrest = quantrest.replace(",", ".");
-    console.log("oie");
   } else if (quantrest.includes(".") && quantrest.includes(",")) {
     quantrest = quantrest.replace(",", ".");
     quantrest = quantrest.replace(".", "");
-    console.log("tchau");
   }
-  console.log(quantrest);
 
   var doc = new jsPDF({
     orientation: "landscape",
@@ -99,11 +95,11 @@ function generatePDF(qrscan, pacote, auxx, valor, fab, lote, date) {
   doc.line(30, 29, 30, 38);
   doc.setFontSize(8);
   doc.text(resposta[3], 48, 27);
-
   // Adicionando o QR Code ao PDF
   const qrImageData = document.getElementById("myqr").toDataURL("image/png");
   doc.addImage(qrImageData, "PNG", 80.5 , 20.5, 22, 22);
  
+  // Retornar a string desejada
   return resposta[7] + "/" + resposta[3] + "/";
 }
 

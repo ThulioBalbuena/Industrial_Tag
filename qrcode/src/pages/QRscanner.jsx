@@ -100,11 +100,8 @@ function QRscanner() {
         break; // Saia do loop se houver um erro
       }
     }
-
-    // Salvar o documento PDF após o loop
-    doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
-    alert("Pdfs gerados com sucesso!");
   };
+  alert("Pdfs gerados com sucesso!");
 
   function getValue(string, j) {
     return string.split(/[}|{]+/)[j];
