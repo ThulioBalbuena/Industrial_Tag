@@ -13,17 +13,6 @@ function Home() {
     AOS.init();
     return (
         <div className='Home'>
-            <div data-aos="fade-down">
-                <Card sx={{ maxWidth: 100 }}>
-                <CardMedia
-                component="img"
-                alt="hkl"
-                width="70%"
-                height="200"
-                image="https://logosmarcas.net/wp-content/uploads/2020/12/Hitachi-Logo."
-                />
-                </Card>
-            </div>
             <div data-aos="fade-right">
             <Typography style={{margin:20}} variant="h2">
             QR Code

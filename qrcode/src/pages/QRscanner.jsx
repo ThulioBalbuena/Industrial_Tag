@@ -147,8 +147,7 @@ function QRscanner() {
             doc.setFontSize(8.5);
             doc.setFont('helvetica');
             doc.setFont(undefined, 'bold')
-            //doc.text(7,7, "HITACHI KOKUSAI LINEAR                          ITEM CONFORME");
-            doc.text(7,7, "Vanessa e companhia");
+            doc.text(7,7, "Thulio LTDA - 2024");
               doc.setLineWidth(0.5);
               doc.setFontSize(7);
               doc.text(4, 19, "DESCRIÇÃO:");
