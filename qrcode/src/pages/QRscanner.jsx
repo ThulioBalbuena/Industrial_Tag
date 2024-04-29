@@ -4,17 +4,16 @@ import QrScan from "react-qr-reader";
 import jsPDF from "jspdf";
 import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import QRCode from "qrcode.react"; // Corrigido o nome da importação
+import QRcode from "qrcode.react";
 
 function QRscanner() {
-  var [qrscan, setQrscan] = useState("");
+  const [qrscan, setQrscan] = useState("");
 
   const handleScan = (data) => {
     if (data) {
       setQrscan(data);
       alert(data);
     }
-    return data;
   };
 
   const handleError = (err) => {
@@ -182,6 +181,10 @@ function QRscanner() {
           doc.line(30, 29, 30, 38);
           doc.setFontSize(8);
           doc.text(resposta[3], 48, 27);
+
+          // Adicionando o QR Code ao PDF
+          const qrImageData = document.getElementById("myqr").toDataURL("image/png");
+          doc.addImage(qrImageData, "PNG", 80.5 , 20.5, 22, 22);
         }
         i = i + check - 1;
         if (quantrest === 0 && i === pacote - 1) {
@@ -236,12 +239,7 @@ function QRscanner() {
       <div>
         <center>
           <div>
-            <QRCode
-              id="myqr"
-              value={qrscan}
-              size={75}
-              includeMargin={false}
-            />
+            <QRcode id="myqr" value={qrscan} size={75} includeMargin={false} />
           </div>
         </center>
         <center>
