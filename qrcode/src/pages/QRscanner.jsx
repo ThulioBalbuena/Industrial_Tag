@@ -4,8 +4,7 @@ import QrScan from "react-qr-reader";
 import jsPDF from "jspdf";
 import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import QRCode from "qrcode.react";
-import { toPng } from "html-to-image";
+import QRCode from "qrcode.react"; // Corrigido o nome da importação
 
 function QRscanner() {
   var [qrscan, setQrscan] = useState("");
@@ -52,14 +51,6 @@ function QRscanner() {
     console.log("tchau");
   }
   console.log(quantrest);
-
-  const gerarCodigoQR = (dadosQR) => {
-    return new Promise((resolve, reject) => {
-      toPng(<QRCode value={dadosQR} />)
-        .then((urlDadosQR) => resolve(urlDadosQR))
-        .catch((error) => reject(error));
-    });
-  };
 
   const handleClick = () => {
     var pacote = window.prompt("Digite a quantidade de pacotes: ");
@@ -245,7 +236,12 @@ function QRscanner() {
       <div>
         <center>
           <div>
-            <QRCode id="myqr" value={qrscan} size={75} includeMargin={false} />
+            <QRCode
+              id="myqr"
+              value={qrscan}
+              size={75}
+              includeMargin={false}
+            />
           </div>
         </center>
         <center>
