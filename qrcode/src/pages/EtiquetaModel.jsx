@@ -1,9 +1,10 @@
+// EtiquetaModel.jsx
 import jsPDF from "jspdf";
 
 function generatePDF(qrscan, pacote, auxx, valor, fab, lote, date) {
-    function getValue(string, j) {
-        return string.split(/[}|{]+/)[j];
-    }
+  function getValue(string, j) {
+    return string.split(/[}|{]+/)[j];
+  }
   var resposta = new Array(7);
   for (var t = 0; t < 8; t++) {
     resposta[t] = getValue(qrscan, t);

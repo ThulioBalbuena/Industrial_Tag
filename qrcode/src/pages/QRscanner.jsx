@@ -1,3 +1,4 @@
+// QRscanner.jsx
 import React, { useState } from "react";
 import { Fab, TextField } from "@material-ui/core";
 import QrScan from "react-qr-reader";
@@ -24,33 +25,6 @@ function QRscanner() {
   const handleChange = (event) => {
     setQrscan(event.target.value);
   };
-
-  function getValue(string, j) {
-    return string.split(/[}|{]+/)[j];
-  }
-
-  var resposta = new Array(7);
-  for (var t = 0; t < 8; t++) {
-    resposta[t] = getValue(qrscan, t);
-  }
-  for (var o = 0; o < 8; o++) {
-    if (resposta[o] === undefined) {
-      resposta[o] = "...";
-    }
-  }
-
-  var quantrest = resposta[4];
-  console.log(quantrest);
-
-  if (quantrest.includes(".") === false && quantrest.includes(",")) {
-    quantrest = quantrest.replace(",", ".");
-    console.log("oie");
-  } else if (quantrest.includes(".") && quantrest.includes(",")) {
-    quantrest = quantrest.replace(",", ".");
-    quantrest = quantrest.replace(".", "");
-    console.log("tchau");
-  }
-  console.log(quantrest);
 
   const handleClick = () => {
     var pacote = window.prompt("Digite a quantidade de pacotes: ");
@@ -118,26 +92,46 @@ function QRscanner() {
           auxx++;
           generatePDF(qrscan, pacote, auxx, valor, fab, lote, date);
         }
-        i = i + check - 1;
-        if (quantrest === 0 && i === pacote - 1) {
-          doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
-          alert("Pdfs gerados com sucesso!");
-        } else if (quantrest !== 0 && i === pacote - 1) {
-          alert(
-            "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
-          );
-          i = pacote;
-          window.location.reload();
-        }
       } else if (quantrest === 0 || quantrest < 0) {
         alert(
           "Erro ao gerar pdfs: Quantidade de pacotes não confere com a quantidade de itens!"
         );
-        i = pacote;
         window.location.reload();
+        break; // Saia do loop se houver um erro
       }
     }
+
+    // Salvar o documento PDF após o loop
+    doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
+    alert("Pdfs gerados com sucesso!");
   };
+
+  function getValue(string, j) {
+    return string.split(/[}|{]+/)[j];
+  }
+
+  var resposta = new Array(7);
+  for (var t = 0; t < 8; t++) {
+    resposta[t] = getValue(qrscan, t);
+  }
+  for (var o = 0; o < 8; o++) {
+    if (resposta[o] === undefined) {
+      resposta[o] = "...";
+    }
+  }
+
+  var quantrest = resposta[4];
+  console.log(quantrest);
+
+  if (quantrest.includes(".") === false && quantrest.includes(",")) {
+    quantrest = quantrest.replace(",", ".");
+    console.log("oie");
+  } else if (quantrest.includes(".") && quantrest.includes(",")) {
+    quantrest = quantrest.replace(",", ".");
+    quantrest = quantrest.replace(".", "");
+    console.log("tchau");
+  }
+  console.log(quantrest);
 
   return (
     <div>
