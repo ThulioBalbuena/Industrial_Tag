@@ -31,6 +31,7 @@ function QRscanner() {
     var nome = 0;
     const date = new Date().toLocaleDateString();
     var check;
+    var quantrest; // Definir quantrest aqui
     console.log(quantrest);
     var auxx = 0;
     var ajuda = quantrest / pacote;
@@ -83,7 +84,7 @@ function QRscanner() {
 
         for (var j = 0; j < check; j++) {
           auxx++;
-          generatePDF(qrscan, pacote, auxx, valor, fab, lote, date);
+          generatePDF(qrscan, pacote, auxx, valor, fab, lote, date, nome);
         }
       } else if (quantrest === 0 || quantrest < 0) {
         alert(
@@ -93,8 +94,9 @@ function QRscanner() {
         break; // Saia do loop se houver um erro
       }
     }
+
+    alert("Pdfs gerados com sucesso!"); // Mover para cá
   };
-  alert("Pdfs gerados com sucesso!");
 
   function getValue(string, j) {
     return string.split(/[}|{]+/)[j];
@@ -111,17 +113,13 @@ function QRscanner() {
   }
 
   var quantrest = resposta[4];
-  console.log(quantrest);
 
   if (quantrest.includes(".") === false && quantrest.includes(",")) {
     quantrest = quantrest.replace(",", ".");
-    console.log("oie");
   } else if (quantrest.includes(".") && quantrest.includes(",")) {
     quantrest = quantrest.replace(",", ".");
     quantrest = quantrest.replace(".", "");
-    console.log("tchau");
   }
-  console.log(quantrest);
 
   return (
     <div>
@@ -149,28 +147,18 @@ function QRscanner() {
           maxRows={4}
           value={qrscan}
           onChange={handleChange}
-          helperText="Clique aqui e escaneie"
+          helperText="Insira o código manualmente"
         />
       </center>
-      <div>
-        <center>
-          <div>
-            <QRcode id="myqr" value={qrscan} size={75} includeMargin={false} />
-          </div>
-        </center>
-        <center>
-          <Fab
-            variant="extended"
-            color="primary"
-            aria-label="add"
-            onClick={handleClick}
-          >
-            Salvar etiqueta(s)
-          </Fab>
-        </center>
-      </div>
+      <center>
+        <QRcode value={qrscan} />
+      </center>
+      <center>
+        <button onClick={handleClick}>Gerar PDF</button>
+      </center>
     </div>
   );
 }
 
 export default QRscanner;
+

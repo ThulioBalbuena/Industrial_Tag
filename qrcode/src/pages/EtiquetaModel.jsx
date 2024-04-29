@@ -1,6 +1,7 @@
+// EtiquetaModel.jsx
 import jsPDF from "jspdf";
 
-function generatePDF(qrscan, pacote, auxx, valor, fab, lote, date) {
+function generatePDF(qrscan, pacote, auxx, valor, fab, lote, date, nome) {
   function getValue(string, j) {
     return string.split(/[}|{]+/)[j];
   }
@@ -100,7 +101,9 @@ function generatePDF(qrscan, pacote, auxx, valor, fab, lote, date) {
   doc.addImage(qrImageData, "PNG", 80.5 , 20.5, 22, 22);
  
   // Retornar a string desejada
-  return resposta[7] + "/" + resposta[3] + "/";
+  var pdfPath = resposta[7] + "/" + resposta[3] + "/";
+  doc.save(pdfPath + nome + ".pdf");
+  return pdfPath;
 }
 
 export default generatePDF;
