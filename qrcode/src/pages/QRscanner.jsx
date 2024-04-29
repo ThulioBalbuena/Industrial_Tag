@@ -38,12 +38,6 @@ function QRscanner() {
     var valor;
     var lote, fab;
 
-    var doc = new jsPDF({
-      orientation: "landscape",
-      unit: "mm",
-      format: [100, 40],
-    });
-
     for (var i = 0; i < pacote; i++) {
       if (quantrest !== 0) {
         nome++;
