@@ -6,8 +6,6 @@ import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import QRCode from "qrcode.react";
 import { toPng } from "html-to-image";
-import { saveAs } from "file-saver";
-
 
 function QRscanner() {
   var [qrscan, setQrscan] = useState("");
