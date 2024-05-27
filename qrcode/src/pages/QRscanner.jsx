@@ -52,9 +52,9 @@ function QRscanner() {
       alert("Quantidade de pacotes inválida!");
       return;
     }
-  
+
     alert("VERIFIQUE se a quantidade de pacotes está correta: " + pacote);
-  
+
     var nome = 0;
     const date = new Date().toLocaleDateString();
     var auxx = 0;
@@ -62,13 +62,13 @@ function QRscanner() {
     var valor;
     var lote, fab;
     var check;
-  
+
     var doc = new jsPDF({
       orientation: "landscape",
       unit: "mm",
       format: [100, 40],
     });
-  
+
     for (var i = 0; i < pacote; i++) {
       if (quantrest > 0) {
         nome++;
@@ -91,7 +91,7 @@ function QRscanner() {
         }
         valor = valor.replace(",", ".");
         valor = parseFloat(valor);
-  
+
         while (valor > quantrest || valor <= 0 || isNaN(valor)) {
           valor = parseFloat(
             window.prompt(
@@ -106,22 +106,22 @@ function QRscanner() {
             return;
           }
         }
-  
+
         quantrest = parseFloat((quantrest - valor * check).toFixed(2));
         if (quantrest < 0) {
           alert("Erro: Valor total do produto ultrapassado");
           window.location.reload();
         }
-  
+
         valor = valor.toString().replace(".", ",");
-  
-        for (var j = 0; j < check; j++) {
+
+        for (var j = 1; j < check; j++) {
           auxx++;
           doc.addPage(); // Adiciona uma nova página para cada etiqueta
-  
+
           doc.setLineWidth(1);
           doc.rect(3, 3, 95, 35, "S");
-  
+
           // Adicionando textos e linhas
           doc.setLineWidth(0.5);
           doc.setFontSize(8.5);
@@ -167,13 +167,13 @@ function QRscanner() {
           doc.line(16, 29, 16, 38);
           doc.line(30, 29, 30, 38);
           doc.text(resposta[3], 48, 27);
-  
+
           // Adicionando o QR Code ao PDF
           const canvas = document.createElement("canvas");
           const context = canvas.getContext("2d");
           const qrElement = document.getElementById("myqr");
-  
-          if (qrElement && quantrest > 0) { // Verifica se a quantidade restante é maior que zero
+
+          if (qrElement) {
             canvas.width = qrElement.width;
             canvas.height = qrElement.height;
             context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
@@ -183,7 +183,7 @@ function QRscanner() {
         }
       }
     }
-  
+
     if (quantrest === 0) {
       doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
       alert("Pdfs gerados com sucesso!");
