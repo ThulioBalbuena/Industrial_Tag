@@ -115,7 +115,7 @@ function QRscanner() {
 
         valor = valor.toString().replace(".", ",");
 
-        for (var j = 0; j <= check; j++) {
+        for (var j = 0; j < check; j++) {
           auxx++;
           doc.addPage(); // Adiciona uma nova página para cada etiqueta
 
