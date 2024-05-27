@@ -6,6 +6,7 @@ import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import QRcode from "qrcode.react";
 
+
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
 
@@ -174,7 +175,7 @@ function QRscanner() {
           
           if (qrElement) {
             let canvas = document.createElement('canvas'); // Declare the 'canvas' variable
-            QRcode.toCanvas(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
+            QRcode.toDataURL(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
               if (error) {
                 console.error(error);
                 return;
