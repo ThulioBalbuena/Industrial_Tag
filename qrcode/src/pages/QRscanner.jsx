@@ -46,10 +46,6 @@ function QRscanner() {
     quantrest = quantrest.replace(".", "");
   }
 
-  function addQRCodeToPDF(doc, canvas) {
-    doc.addImage(canvas.toDataURL("image/png"), "PNG", 80, 20, 15, 15);
-  }
-
   const handleClick = () => {
     var pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
     if (isNaN(pacote) || pacote <= 0) {
