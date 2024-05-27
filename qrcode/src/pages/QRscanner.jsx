@@ -189,7 +189,7 @@ function QRscanner() {
               var qrImageData = canvas.toDataURL("image/png");
           
               // Add the QR Code image to the PDF
-              doc.addImage(qrImageData, "PNG", 85, 25, 15, 15);
+              doc.addImage(qrImageData, "PNG", 80, 22, 16, 16);
             });
           }
           }
