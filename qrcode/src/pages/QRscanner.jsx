@@ -115,7 +115,7 @@ function QRscanner() {
 
         valor = valor.toString().replace(".", ",");
 
-        for (var j = 0; j < check; j++) {
+        for (var j = 0; j <= check; j++) {
           auxx++;
           doc.addPage(); // Adiciona uma nova página para cada etiqueta
 
@@ -166,12 +166,9 @@ function QRscanner() {
           doc.text(fab, 13, 27);
           doc.line(16, 29, 16, 38);
           doc.line(30, 29, 30, 38);
-          const toDataURL = (qrValue, options, callback) => {
-            // Function implementation here
-          };
-
           doc.text(resposta[3], 48, 27);
 
+          // Adicionando o QR Code ao PDF
           const canvas = document.createElement("canvas");
           const context = canvas.getContext("2d");
           const qrElement = document.getElementById("myqr");
@@ -180,21 +177,21 @@ function QRscanner() {
             canvas.width = qrElement.width;
             canvas.height = qrElement.height;
             context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
-            const qrValue = qrscan.replace(/([}|{].*?){4}[}|{]/, '$1' + valor.toString());
-
-            toDataURL(qrValue, { errorCorrectionLevel: "H" }, function (err, url) {
-              if (err) {
-                console.error(err);
-                return;
-              }
-              const img = new Image();
-              img.src = url;
-              context.drawImage(img, 60, 20, 30, 30);
-              doc.addImage(canvas.toDataURL("image/png"), "PNG", 60, 20, 30, 30);
-            });
+            const qrImageData = canvas.toDataURL("image/png");
+            doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
           }
         }
       }
+    }
+
+    if (quantrest === 0) {
+      doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
+      alert("Pdfs gerados com sucesso!");
+    } else {
+      alert(
+        "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
+      );
+      window.location.reload();
     }
   };
 
@@ -230,7 +227,7 @@ function QRscanner() {
       <div>
         <center>
           <div>
-            <QRcode value={qrscan} size={75} includeMargin={false} />
+            <QRcode id="myqr" value={qrscan} size={75} includeMargin={false} />
           </div>
         </center>
         <center>
@@ -249,4 +246,3 @@ function QRscanner() {
 }
 
 export default QRscanner;
-
