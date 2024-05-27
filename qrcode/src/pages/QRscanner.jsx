@@ -46,6 +46,10 @@ function QRscanner() {
     quantrest = quantrest.replace(".", "");
   }
 
+  function addQRCodeToPDF(doc, canvas) {
+    doc.addImage(canvas.toDataURL("image/png"), "PNG", 80, 20, 15, 15);
+  }
+
   const handleClick = () => {
     var pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
     if (isNaN(pacote) || pacote <= 0) {
@@ -173,17 +177,17 @@ function QRscanner() {
           qrElementArray[4] = valor.toString();
 
           var qrElement = qrElementArray.join('|');
-
-          // Adicionando o QR Code ao PDF
-          var canvas = document.createElement("canvas");
-          var context = canvas.getContext("2d");
-
           if (qrElement) {
-            canvas.width = qrElement.width;
-            canvas.height = qrElement.height;
-            context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
-            var qrImageData = canvas.toDataURL("image/png");
-            doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
+            let canvas = document.createElement('canvas'); // Declare the 'canvas' variable
+            QRcode.toCanvas(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+      
+              // Chama a função addQRCodeToPDF passando o contexto do canvas
+              addQRCodeToPDF(doc, canvas);
+            });
           }
         }
       }
@@ -251,3 +255,4 @@ function QRscanner() {
 }
 
 export default QRscanner;
+
