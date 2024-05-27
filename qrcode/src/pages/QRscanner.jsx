@@ -4,8 +4,7 @@ import QrScan from "react-qr-reader";
 import jsPDF from "jspdf";
 import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import QRcode from "qrcode.react";
-
+import QRcode from "qrcode";
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
