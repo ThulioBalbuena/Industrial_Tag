@@ -18,6 +18,7 @@
     "modern-react-qr-reader": "^1.0.12",
     "namor": "^2.0.4",
     "papaparse": "5.2.0",
+    "qrcode": "^1.5.3",
     "qrcode.react": "^3.1.0",
     "react": "17.0.0",
     "react-dom": "17.0.0",

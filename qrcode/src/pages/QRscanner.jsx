@@ -5,11 +5,9 @@ import jsPDF from "jspdf";
 import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import QRcode from "qrcode.react";
-import { toDataURL } from 'qrcode';
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
-  const [valorPacote, setValorPacote] = useState("");
 
   const handleScan = (data) => {
     if (data) {
@@ -24,10 +22,6 @@ function QRscanner() {
 
   const handleChange = (event) => {
     setQrscan(event.target.value);
-  };
-
-  const handleValorPacoteChange = (event) => {
-    setValorPacote(event.target.value);
   };
 
   function getValue(string, j) {
@@ -172,41 +166,35 @@ function QRscanner() {
           doc.text(fab, 13, 27);
           doc.line(16, 29, 16, 38);
           doc.line(30, 29, 30, 38);
+          const toDataURL = (qrValue, options, callback) => {
+            // Function implementation here
+          };
+
           doc.text(resposta[3], 48, 27);
 
           const canvas = document.createElement("canvas");
           const context = canvas.getContext("2d");
           const qrElement = document.getElementById("myqr");
-          
+
           if (qrElement) {
             canvas.width = qrElement.width;
             canvas.height = qrElement.height;
             context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
             const qrValue = qrscan.replace(/([}|{].*?){4}[}|{]/, '$1' + valor.toString());
-          
-            // Utilize a função toDataURL do qrcode para gerar o QR Code
-            toDataURL(qrValue, { errorCorrectionLevel: 'H' }, (err, url) => {
+
+            toDataURL(qrValue, { errorCorrectionLevel: "H" }, function (err, url) {
               if (err) {
                 console.error(err);
                 return;
               }
-              
-              // Adicione a imagem do QR Code ao documento PDF
-              doc.addImage(url, "PNG", 80, 20, 15, 15);
+              const img = new Image();
+              img.src = url;
+              context.drawImage(img, 60, 20, 30, 30);
+              doc.addImage(canvas.toDataURL("image/png"), "PNG", 60, 20, 30, 30);
             });
           }
+        }
       }
-    }
-  }
-
-    if (quantrest === 0) {
-      doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
-      alert("Pdfs gerados com sucesso!");
-    } else {
-      alert(
-        "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
-      );
-      window.location.reload();
     }
   };
 
@@ -237,15 +225,6 @@ function QRscanner() {
           value={qrscan}
           onChange={handleChange}
           helperText="Clique aqui e escaneie"
-        />
-        <TextField
-          label="Valor do pacote: "
-          variant="filled"
-          style={{ fontSize: 17, width: 220, height: 100, marginTop: 20 }}
-          maxRows={4}
-          value={valorPacote}
-          onChange={handleValorPacoteChange}
-          helperText="Insira o valor do pacote"
         />
       </center>
       <div>
