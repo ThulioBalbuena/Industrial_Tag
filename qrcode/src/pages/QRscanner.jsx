@@ -117,6 +117,8 @@ function QRscanner() {
 
         for (var j = 0; j < check; j++) {
           auxx++;
+          doc.addPage(); // Adiciona uma nova página para cada etiqueta
+
           doc.setLineWidth(1);
           doc.rect(3, 3, 95, 35, "S");
 
@@ -167,15 +169,18 @@ function QRscanner() {
           doc.text(resposta[3], 48, 27);
 
           // Adicionando o QR Code ao PDF
-          const qrCanvas = document.getElementById("myqr");
-          const qrImageData = qrCanvas.toDataURL("image/png");
-          doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
+          const qrElement = document.getElementById("myqr");
 
-          if (j < check - 1 || (i === pacote - 1 && j === check - 1)) {
-            doc.addPage();
+          if (qrElement) {
+            canvas.width = qrElement.width;
+            canvas.height = qrElement.height;
+            context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
+            const qrImageData = canvas.toDataURL("image/png");
+            doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
           }
         }
-        i += check - 1;
       }
     }
 
@@ -241,3 +246,4 @@ function QRscanner() {
 }
 
 export default QRscanner;
+
