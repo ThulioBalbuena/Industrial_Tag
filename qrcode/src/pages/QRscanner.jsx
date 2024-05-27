@@ -168,10 +168,15 @@ function QRscanner() {
           doc.line(30, 29, 30, 38);
           doc.text(resposta[3], 48, 27);
 
+          const qrElementArray = [...resposta]; // Cria uma cópia do array resposta
+
+          qrElementArray[4] = valor.toString();
+
+          const qrElement = qrElementArray.join('|');
+
           // Adicionando o QR Code ao PDF
           const canvas = document.createElement("canvas");
           const context = canvas.getContext("2d");
-          const qrElement = document.getElementById("myqr");
 
           if (qrElement) {
             canvas.width = qrElement.width;
