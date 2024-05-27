@@ -170,6 +170,10 @@ function QRscanner() {
           const qrCanvas = document.getElementById("myqr");
           const qrImageData = qrCanvas.toDataURL("image/png");
           doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
+
+          if (j < check - 1 || (i === pacote - 1 && j === check - 1)) {
+            doc.addPage();
+          }
         }
         i += check - 1;
       }
