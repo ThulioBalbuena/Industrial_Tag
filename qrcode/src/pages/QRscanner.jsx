@@ -4,8 +4,8 @@ import QrScan from "react-qr-reader";
 import jsPDF from "jspdf";
 import { ArrowBack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import QRcode from "qrcode.react";
-import ReactDOM from "react-dom";
+import QRCode from "qrcode.react";
+import QRcode from "qrcode";
 
 
 function QRscanner() {
@@ -174,14 +174,24 @@ function QRscanner() {
           qrElementArray[4] = valor.toString();
           var qrElement = qrElementArray.join('|');
           
-          // Cria um elemento canvas
-          let canvas = document.createElement('canvas');
-
-          // Renderiza o componente QRCode em um elemento canvas
-          ReactDOM.render(<QRcode value={qrElement} />, canvas);
-
-          // Adicionando o canvas ao PDF
-          doc.addImage(canvas, 'PNG', 80, 20, 15, 15);
+          if (qrElement) {
+            // Create a new canvas element
+            let canvas = document.createElement('canvas');
+          
+            // Generate the QR Code on the canvas
+            QRcode.toCanvas(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
+              if (error) {
+                console.error(error);
+                return;
+              }
+          
+              // Convert the canvas content to a data URL
+              var qrImageData = canvas.toDataURL("image/png");
+          
+              // Add the QR Code image to the PDF
+              doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
+            });
+          }
           }
         }
       }
@@ -229,7 +239,7 @@ function QRscanner() {
       <div>
         <center>
           <div>
-            <QRcode id="myqr" value={qrscan} size={75} includeMargin={false} />
+            <QRCode id="myqr" value={qrscan} size={75} includeMargin={false} />
           </div>
         </center>
         <center>
