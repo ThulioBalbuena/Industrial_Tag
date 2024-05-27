@@ -120,7 +120,7 @@ function QRscanner() {
 
         valor = valor.toString().replace(".", ",");
 
-        for (var j = 1; j < check; j++) {
+        for (var j = 0; j < check; j++) {
           auxx++;
           doc.addPage(); // Adiciona uma nova página para cada etiqueta
 
@@ -180,7 +180,7 @@ function QRscanner() {
             canvas.width = qrElement.width;
             canvas.height = qrElement.height;
             context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
-            const qrValue = qrscan.replace(/{5}/, valor.toString());
+            const qrValue = qrscan.replace(/([}|{].*?){4}[}|{]/, '$1' + valor.toString());
             const qrImageData = generateQRCode(qrValue);
             doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
         }
