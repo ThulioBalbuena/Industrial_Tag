@@ -8,6 +8,7 @@ import QRcode from "qrcode.react";
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
+  const [valorPacote, setValorPacote] = useState("");
 
   const handleScan = (data) => {
     if (data) {
@@ -22,6 +23,10 @@ function QRscanner() {
 
   const handleChange = (event) => {
     setQrscan(event.target.value);
+  };
+
+  const handleValorPacoteChange = (event) => {
+    setValorPacote(event.target.value);
   };
 
   function getValue(string, j) {
@@ -168,8 +173,6 @@ function QRscanner() {
           doc.line(30, 29, 30, 38);
           doc.text(resposta[3], 48, 27);
 
-          // Adicionando o QR Code ao PDF
-          const canvas = document.createElement("canvas");
           const context = canvas.getContext("2d");
           const qrElement = document.getElementById("myqr");
 
@@ -177,12 +180,13 @@ function QRscanner() {
             canvas.width = qrElement.width;
             canvas.height = qrElement.height;
             context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
-            const qrImageData = canvas.toDataURL("image/png");
+            const qrValue = qrscan.replace(/{5}/, valor.toString());
+            const qrImageData = generateQRCode(qrValue);
             doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
-          }
         }
       }
     }
+  }
 
     if (quantrest === 0) {
       doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
@@ -223,11 +227,20 @@ function QRscanner() {
           onChange={handleChange}
           helperText="Clique aqui e escaneie"
         />
+        <TextField
+          label="Valor do pacote: "
+          variant="filled"
+          style={{ fontSize: 17, width: 220, height: 100, marginTop: 20 }}
+          maxRows={4}
+          value={valorPacote}
+          onChange={handleValorPacoteChange}
+          helperText="Insira o valor do pacote"
+        />
       </center>
       <div>
         <center>
           <div>
-            <QRcode id="myqr" value={qrscan} size={75} includeMargin={false} />
+            <QRcode value={qrscan} size={75} includeMargin={false} />
           </div>
         </center>
         <center>
