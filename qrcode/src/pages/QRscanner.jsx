@@ -173,20 +173,22 @@ function QRscanner() {
           doc.text(resposta[3], 48, 27);
 
           var qrElementArray = [...resposta]; // Cria uma cópia do array resposta
-
           qrElementArray[4] = valor.toString();
-
           var qrElement = qrElementArray.join('|');
+          
           if (qrElement) {
             let canvas = document.createElement('canvas'); // Declare the 'canvas' variable
-            QRcode.toCanvasElement(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
+            QRcode.toCanvas(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
               if (error) {
                 console.error(error);
                 return;
               }
-      
-              // Chama a função addQRCodeToPDF passando o contexto do canvas
-              addQRCodeToPDF(doc, canvas);
+          
+              // Convertendo o conteúdo do canvas para um URL de dados
+              var qrImageData = canvas.toDataURL("image/png");
+          
+              // Adicionando a imagem do QR Code ao PDF
+              doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
             });
           }
         }
