@@ -28,7 +28,7 @@ function QRscanner() {
     return string.split(/[}|{]+/)[j];
   }
 
-  var resposta = new Array(7);
+  var resposta = new Array(8);
   for (var t = 0; t < 8; t++) {
     resposta[t] = getValue(qrscan, t);
   }
@@ -39,29 +39,29 @@ function QRscanner() {
   }
 
   var quantrest = resposta[4];
-  console.log(quantrest);
-
   if (quantrest.includes(".") === false && quantrest.includes(",")) {
     quantrest = quantrest.replace(",", ".");
-    console.log("oie");
   } else if (quantrest.includes(".") && quantrest.includes(",")) {
     quantrest = quantrest.replace(",", ".");
     quantrest = quantrest.replace(".", "");
-    console.log("tchau");
   }
-  console.log(quantrest);
 
   const handleClick = () => {
-    var pacote = window.prompt("Digite a quantidade de pacotes: ");
+    var pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
+    if (isNaN(pacote) || pacote <= 0) {
+      alert("Quantidade de pacotes inválida!");
+      return;
+    }
+
     alert("VERIFIQUE se a quantidade de pacotes está correta: " + pacote);
+
     var nome = 0;
     const date = new Date().toLocaleDateString();
-    var check;
-    console.log(quantrest);
     var auxx = 0;
     var ajuda = quantrest / pacote;
     var valor;
     var lote, fab;
+    var check;
 
     var doc = new jsPDF({
       orientation: "landscape",
@@ -70,7 +70,7 @@ function QRscanner() {
     });
 
     for (var i = 0; i < pacote; i++) {
-      if (quantrest !== 0) {
+      if (quantrest > 0) {
         nome++;
         if (i === 0) {
           alert("Insira valores com decimais primeiro.");
@@ -84,40 +84,43 @@ function QRscanner() {
           );
         }
         valor = window.prompt("Digite o valor do pacote " + nome + ": ");
-        check = window.prompt("Quantos pacotes contém o esse mesmo valor? ");
-        check = Number(check);
-        valor = valor.replace(",", ".");
-        valor = Number(valor);
-        while (valor > quantrest || valor <= 0 || isNaN(valor)) {
-          console.log("entrei no while");
-          valor = window.prompt(
-            "Valor incoerente com o valor total do produto, digite novamente (valor restante: " +
-              quantrest +
-              "): "
-          );
-          valor = valor.replace(",", ".");
-          check = window.prompt(
-            "Quantos pacotes contém o esse mesmo valor? "
-          );
-          check = Number(check);
-          valor = Number(valor);
+        check = parseInt(window.prompt("Quantos pacotes contêm esse mesmo valor? "), 10);
+        if (isNaN(check) || check <= 0) {
+          alert("Quantidade de pacotes inválida!");
+          return;
         }
-        console.log(valor);
-        quantrest = Math.round(quantrest - valor * check).toFixed(2);
-        quantrest = Number(quantrest);
-        console.log(quantrest);
+        valor = valor.replace(",", ".");
+        valor = parseFloat(valor);
+
+        while (valor > quantrest || valor <= 0 || isNaN(valor)) {
+          valor = parseFloat(
+            window.prompt(
+              "Valor incoerente com o valor total do produto, digite novamente (valor restante: " +
+                quantrest +
+                "): "
+            ).replace(",", ".")
+          );
+          check = parseInt(window.prompt("Quantos pacotes contêm esse mesmo valor? "), 10);
+          if (isNaN(check) || check <= 0) {
+            alert("Quantidade de pacotes inválida!");
+            return;
+          }
+        }
+
+        quantrest = parseFloat((quantrest - valor * check).toFixed(2));
         if (quantrest < 0) {
           alert("Erro: Valor total do produto ultrapassado");
           window.location.reload();
         }
-        valor = valor.toString();
-        valor = valor.replace(".", ",");
+
+        valor = valor.toString().replace(".", ",");
 
         for (var j = 0; j < check; j++) {
           auxx++;
           doc.setLineWidth(1);
           doc.rect(3, 3, 95, 35, "S");
-          //vertical
+
+          // Adicionando textos e linhas
           doc.setLineWidth(0.5);
           doc.setFontSize(8.5);
           doc.setFont("helvetica");
@@ -126,79 +129,63 @@ function QRscanner() {
           doc.setLineWidth(0.5);
           doc.setFontSize(7);
           doc.text(4, 19, "DESCRIÇÃO:");
-          doc.setFontSize(7);
           doc.text(resposta[0], 21, 19);
-          doc.setLineWidth(0.5);
           doc.line(98, 15, 58, 15);
           doc.line(77, 29, 3, 29);
-          //LINHA DO MEIO
           doc.line(43, 38, 43, 29);
           doc.line(58, 3, 58, 15);
           doc.line(77, 20, 77, 38);
           doc.line(77, 20, 98, 20);
-          doc.setFontSize(7);
           doc.text(4, 15, "LOCALIZAÇÃO:");
-          doc.setFontSize(8);
           doc.text(resposta[6], 24, 15);
-          doc.setFontSize(8);
           doc.text(31, 32, "Pacote:");
-          doc.setLineWidth(0.5);
           doc.setFontSize(6.5);
           doc.text(60, 10, '"Usar peças antigas primeiro"');
-          doc.setFontSize(8);
           doc.text(resposta[7], 16, 11.5);
           doc.line(59, 29, 59, 38);
-          doc.setFontSize(7);
           doc.text(4, 23, "PN:");
-          doc.setFontSize(8);
           doc.text(resposta[1], 9, 23);
-          doc.setFontSize(7);
-          doc.setLineWidth(0.5);
           doc.text(4, 11.5, "CÓDIGO:");
-          doc.setFontSize(8);
           doc.text("Recebido:", 60, 13.5);
           doc.text(date, 75, 13.5);
           doc.text("Grupo:", 4, 32);
           doc.text("Fab-Emb", 17, 32);
           doc.text(lote, 17, 36);
-          doc.setFontSize(8);
-          doc.text(4, 36, resposta[5]);
-          doc.setFontSize(8);
+          doc.text(resposta[5], 4, 36);
           doc.text(31, 36, auxx + " / " + pacote);
-          doc.setFontSize(8);
           doc.text("Quantidade:", 60, 32);
           doc.setFontSize(10);
           doc.text(valor, 60, 36);
           doc.setFontSize(8);
           doc.text(44, 32, "Unidade:");
-          doc.setFontSize(8);
           doc.text(44, 36, resposta[2]);
-          doc.setFontSize(7);
           doc.text("OC:", 42, 27);
           doc.text("FORN:", 4, 27);
           doc.text(fab, 13, 27);
           doc.line(16, 29, 16, 38);
           doc.line(30, 29, 30, 38);
-          doc.setFontSize(8);
           doc.text(resposta[3], 48, 27);
 
           // Adicionando o QR Code ao PDF
-          const qrImageData = document.getElementById("myqr").toDataURL("image/png");
-          doc.addImage(qrImageData, "PNG", 77, 19, 15, 15); // Largura e altura ajustadas para 15
+          const qrCanvas = document.getElementById("myqr");
+          const qrImageData = qrCanvas.toDataURL("image/png");
+          doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
         }
-        i = i + check - 1;
-        if (quantrest === 0 && i === pacote - 1) {
-          doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
-          alert("Pdfs gerados com sucesso!");
-      } else if (quantrest !== 0 && i === pacote - 1) {
-          alert(
-              "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
-          );
-          window.location.reload();
+        i += check - 1;
       }
     }
+
+    if (quantrest === 0) {
+      doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
+      alert("Pdfs gerados com sucesso!");
+    } else {
+      alert(
+        "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
+      );
+      window.location.reload();
+    }
   };
-  };
+
   return (
     <div>
       <Link to="/">
