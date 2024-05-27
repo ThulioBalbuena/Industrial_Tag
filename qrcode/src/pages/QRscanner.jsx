@@ -168,21 +168,21 @@ function QRscanner() {
           doc.line(30, 29, 30, 38);
           doc.text(resposta[3], 48, 27);
 
-          const qrElementArray = [...resposta]; // Cria uma cópia do array resposta
+          var qrElementArray = [...resposta]; // Cria uma cópia do array resposta
 
           qrElementArray[4] = valor.toString();
 
-          const qrElement = qrElementArray.join('|');
+          var qrElement = qrElementArray.join('|');
 
           // Adicionando o QR Code ao PDF
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d");
+          var canvas = document.createElement("canvas");
+          var context = canvas.getContext("2d");
 
           if (qrElement) {
             canvas.width = qrElement.width;
             canvas.height = qrElement.height;
             context.drawImage(qrElement, 0, 0, qrElement.width, qrElement.height);
-            const qrImageData = canvas.toDataURL("image/png");
+            var qrImageData = canvas.toDataURL("image/png");
             doc.addImage(qrImageData, "PNG", 80, 20, 15, 15);
           }
         }
