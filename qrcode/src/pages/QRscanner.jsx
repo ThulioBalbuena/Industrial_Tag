@@ -175,7 +175,7 @@ function QRscanner() {
           
           if (qrElement) {
             let canvas = document.createElement('canvas'); // Declare the 'canvas' variable
-            QRcode.toDataURL(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
+            QRcode.toCanvas(canvas, qrElement, function (error) {
               if (error) {
                 console.error(error);
                 return;
