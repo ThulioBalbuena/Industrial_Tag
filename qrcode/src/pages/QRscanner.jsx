@@ -179,7 +179,7 @@ function QRscanner() {
           var qrElement = qrElementArray.join('|');
           if (qrElement) {
             let canvas = document.createElement('canvas'); // Declare the 'canvas' variable
-            QRcode.toCanvas(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
+            QRcode.toCanvasElement(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
               if (error) {
                 console.error(error);
                 return;
