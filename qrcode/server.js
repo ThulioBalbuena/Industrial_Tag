@@ -21,6 +21,7 @@ const QRCodeSchema = new mongoose.Schema({
   lote: String
 });
 
+
 const QRCodeData = mongoose.model("QRCodeData", QRCodeSchema);
 
 app.post("/api/qrcodes", async (req, res) => {
