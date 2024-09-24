@@ -9,6 +9,7 @@
     "@mdi/react": "^1.6.1",
     "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.1",
+    "@mui/styles": "^6.1.1",
     "@mui/system": "^6.1.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.4.0",
@@ -78,7 +79,10 @@
     }
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.25.4",
     "@types/react-router-dom": "^5.3.3",
-    "cross-env": "^7.0.3"
+    "babel-loader": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "webpack": "^5.94.0"
   }
 }
