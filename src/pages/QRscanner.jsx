@@ -62,7 +62,7 @@ function QRscanner() {
       });
 
       const data = await response.json();
-      alert(data.message);
+      alert(data.message || "Dados do QR Code salvos com sucesso!");  // Exibe a mensagem do back-end ou uma padrão
     } catch (error) {
       console.error("Erro ao enviar dados para o MongoDB:", error);
     }
