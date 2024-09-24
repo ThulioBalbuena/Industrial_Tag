@@ -103,6 +103,8 @@ function QRscanner() {
       format: [100, 40],
     });
 
+    doc.deletePage(1);
+
     for (var i = 0; i < pacote; i++) {
       if (quantrest > 0) {
         nome++;
