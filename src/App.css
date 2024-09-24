@@ -7,9 +7,9 @@ align-items: center;
 justify-content: center;
 font-size: calc(10px + 2vmin);
 color: #ffffffa2;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
+white-space: normal; /* Permite quebra de linha */
+overflow: visible;   /* Remove o corte de conteúdo */
+text-overflow: clip; /* Exibe o conteúdo completo sem truncamento */
 }
 
 .App-logo {
