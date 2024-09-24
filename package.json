@@ -28,14 +28,14 @@
     "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "5.2.0",
     "react-scripts": "^3.0.1",
-    "serve": "^6.5.8",
+    "serve": "^14.2.3",
     "styled-components": "5.1.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
+    "test": "cross-env NODE_OPTIONS=--openssl-legacy-provider react-scripts test",
     "eject": "react-scripts eject",
     "serv": "node server.js",
     "backend": "nodemon server.js"
@@ -75,5 +75,9 @@
       "react-table-plugins": "^18.0.0",
       "react-web-qr-reader": "^18.0.0"
     }
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "cross-env": "^7.0.3"
   }
 }

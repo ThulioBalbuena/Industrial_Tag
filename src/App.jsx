@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import QRgen from './pages/QRgenerator'
 import QRscan from './pages/QRscanner'
 import Ident from './pages/Identifier'
+import React from 'react';
 
 function App() {
   return (
