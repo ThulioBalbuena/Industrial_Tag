@@ -1,27 +1,34 @@
-import React from "react";
-import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+import React, { useState } from "react";
+import QrScanner from "react-qr-scanner";
 import { Link } from "react-router-dom";
 import { ArrowBack, ReplayOutlined } from '@mui/icons-material';
 import { Fab, TextField } from '@mui/material';
 
-function App() {
-  const [data, setData] = React.useState("");
+function Identifier() {
+  const [data, setData] = useState("");
+
+  const handleScan = (result) => {
+    if (result) {
+      setData(result.text);
+    }
+  };
+
+  const handleError = (err) => {
+    console.error(err);
+  };
 
   function getValue(string, j) {
     return string.split(/[}_{]+/)[j];
   }
 
-  var resposta = new Array(5);
-  for (var t = 0; t < 3; t++) {
-    resposta[t] = getValue(data, t);
+  // Dividindo o QR code em partes
+  const resposta = new Array(5).fill("...");
+  for (let t = 0; t < 3; t++) {
+    const value = getValue(data, t);
+    resposta[t] = value !== undefined ? value : "...";
   }
 
-  for (var o = 0; o < 3; o++) {
-    if (resposta[o] === undefined) {
-      resposta[o] = "...";
-    }
-  }
-
+  // Atualiza o estado do código escaneado
   const handleChange = (event) => {
     setData(event.target.value);
   };
@@ -34,17 +41,13 @@ function App() {
         </Fab>
       </Link>
       <span>QR Scanner</span>
-      <br></br>
-      <br></br>
-      <BarcodeScannerComponent
-        width={250}
-        height={250}
+      <br />
+      <br />
+      <QrScanner
         delay={300}
-        onUpdate={(err, result) => {
-          if (result) {
-            setData(result.text);
-          }
-        }}
+        style={{ width: '100%' }}
+        onError={handleError}
+        onScan={handleScan}
       />
       <div>
         <TextField
@@ -90,4 +93,4 @@ function App() {
   );
 }
 
-export default App;
+export default Identifier;
