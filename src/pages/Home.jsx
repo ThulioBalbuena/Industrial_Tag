@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2'; // Importa o Grid instável
 import Icon from '@mdi/react';  
-import { mdiQrcode, mdiQrcodeScan, mdiViewList } from '@mdi/js';
+import { mdiQrcode, mdiQrcodeScan, mdiViewList, mdiWarehouse } from '@mdi/js'; // Adiciona mdiWarehouse para o estoque
 import { Link } from "react-router-dom";
 import "./logo.css";
 import AOS from 'aos';
@@ -26,12 +26,12 @@ function Home() {
             <Grid container direction="column" justifyContent="space-between" alignItems="center">
                 <div data-aos="fade-up">
                     <Grid>
-                        <Link to="/qr_generator">
-                            <Button variant="contained" size="large" color="primary">
+                        <Link to="/qr_scanner">
+                            <Button variant="contained" size="large" color="secondary">
                                 <Icon 
                                     style={{ padding: 10 }}
-                                    path={mdiQrcode}
-                                    title="QR Generator"
+                                    path={mdiQrcodeScan}
+                                    title="QR Scanner"
                                     size={10}
                                     color="white"
                                 />
@@ -43,12 +43,12 @@ function Home() {
                 <br></br>
                 <div data-aos="fade-up">
                     <Grid>
-                        <Link to="/qr_scanner">
-                            <Button variant="contained" size="large" color="secondary">
+                        <Link to="/stock">
+                            <Button variant="contained" size="large" color="primary">
                                 <Icon 
                                     style={{ padding: 10 }}
-                                    path={mdiQrcodeScan}
-                                    title="QR Scanner"
+                                    path={mdiWarehouse}
+                                    title="Stock"
                                     size={10}
                                     color="white"
                                 />
@@ -66,6 +66,21 @@ function Home() {
                                     title="Identifier"
                                     size={10}
                                     color="green"
+                                />
+                            </Button>
+                        </Link>
+                    </Grid>
+                    <br></br>
+                    <br></br>
+                    <Grid>
+                        <Link to="/qr_generator">
+                            <Button variant="contained" size="large" color="primary">
+                                <Icon 
+                                    style={{ padding: 10 }}
+                                    path={mdiQrcode}
+                                    title="QR Generator"
+                                    size={10}
+                                    color="white"
                                 />
                             </Button>
                         </Link>

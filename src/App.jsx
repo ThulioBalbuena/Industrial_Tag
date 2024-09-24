@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import QRgen from './pages/QRgenerator'
 import QRscan from './pages/QRscanner'
 import Ident from './pages/Identifier'
+import Stock from './pages/Stock'
 import React from 'react';
 
 function App() {
@@ -33,8 +34,10 @@ function App() {
               <Route path="/identifier">
                 <Ident/>
               </Route>
+              <Route>
+                <Stock/>
+              </Route>
             </Switch>
-
           </div>
         </Router>
 
