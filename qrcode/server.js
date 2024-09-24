@@ -1,11 +1,38 @@
-const express = require('express');
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
+// Substitua com sua string de conexão do MongoDB Atlas
+const mongoURI = "mongodb+srv://thulio:admin@cluster0.hmnh1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 const app = express();
-const path = require('path');
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+app.use(cors());
+app.use(bodyParser.json());
+
+const QRCodeSchema = new mongoose.Schema({
+  codigo: String,
+  descricao: String,
+  quantidade: Number,
+  localizacao: String,
+  dataRecebimento: String,
+  lote: String
 });
-app.listen(3000, () => {
-   console.log("server is r  unnig on port 3000");
-   console.log("Open your browser and hit url 'localhost:3000'");
+
+const QRCodeData = mongoose.model("QRCodeData", QRCodeSchema);
+
+app.post("/api/qrcodes", async (req, res) => {
+  try {
+    const newQRCode = new QRCodeData(req.body);
+    await newQRCode.save();
+    res.status(200).json({ message: "Dados do QR Code salvos com sucesso!" });
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao salvar os dados", error });
+  }
+});
+
+app.listen(5000, () => {
+  console.log("Servidor rodando na porta 5000");
 });

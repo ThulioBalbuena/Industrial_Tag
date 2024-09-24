@@ -48,12 +48,49 @@ function QRscanner() {
     quantrest = quantrest.replace(".", "");
   }
 
-  const handleClick = () => {
-    var pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
-    if (isNaN(pacote) || pacote <= 0) {
-      alert("Quantidade de pacotes inválida!");
-      return;
+  const handleClick = async () => {
+    try {
+      const pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
+      if (isNaN(pacote) || pacote <= 0) {
+        alert("Quantidade de pacotes inválida!");
+        return;
+      }
+  
+      alert("VERIFIQUE se a quantidade de pacotes está correta: " + pacote);
+  
+      // Organizando os dados do QR code para envio
+      const qrData = {
+        codigo: resposta[0],           // Código único do QR
+        descricao: resposta[1],        // Descrição do item
+        quantidade: pacote,            // Quantidade de pacotes
+        localizacao: resposta[6],      // Localização do item
+        dataRecebimento: new Date().toLocaleDateString(),
+        lote: resposta[5],             // Lote do produto
+        detalhes: {                    // Informações adicionais
+          unidade: resposta[2],
+          oc: resposta[3],
+          fabricante: resposta[4],
+          dataLote: resposta[7]
+        }
+      };
+  
+      // Enviando os dados para o backend
+      const response = await fetch("http://localhost:5000/api/qrcodes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(qrData)
+      });
+  
+      const data = await response.json();
+      alert(data.message);
+  
+    } catch (error) {
+      console.error("Erro ao salvar os dados:", error);
     }
+  };
+  
 
     alert("VERIFIQUE se a quantidade de pacotes está correta: " + pacote);
 
