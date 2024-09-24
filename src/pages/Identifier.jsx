@@ -16,7 +16,11 @@ function Identifier() {
 
   const handleError = (err) => {
     console.error(err);
+    if (err.name === "NotAllowedError") {
+      alert("Permissão de câmera negada. Verifique as configurações do navegador.");
+    }
   };
+  
 
   // Função para dividir o QR code em partes
   function getValue(string, j) {
@@ -50,6 +54,7 @@ function Identifier() {
         onError={handleError}
         onScan={handleScan} // Use 'onScan' em vez de 'onResult' ou 'onUpdate'
         style={{ width: '100%' }}
+        legacymode  ={true}
         constraints={{
           video: { facingMode: { exact: "environment" } } // Força o uso da câmera traseira
         }}

@@ -9,7 +9,6 @@ import QRcode from "qrcode";
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
-  const [legacyMode, setLegacyMode] = useState(false);
 
   const handleScan = (data) => {
     if (data) {
@@ -20,24 +19,11 @@ function QRscanner() {
 
   const handleError = (err) => {
     console.error(err);
-    if (err.name === 'NotReadableError' || err.name === 'OverconstrainedError') {
-      setLegacyMode(true);
+    if (err.name === "NotAllowedError") {
+      alert("Permissão de câmera negada. Verifique as configurações do navegador.");
     }
   };
-
-  const handleImageLoad = (file) => {
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = new Image();
-        img.src = reader.result;
-        img.onload = () => {
-          setQrscan("Simulando escaneamento da imagem...");
-        };
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  
 
   const handleChange = (event) => {
     setQrscan(event.target.value);
@@ -263,16 +249,11 @@ function QRscanner() {
             onError={handleError}
             onScan={handleScan}
             style={{ height: 200, width: 200 }}
-            legacyMode={legacyMode}
+            legacymode  ={true}
+            constraints={{
+              video: { facingMode: { exact: "environment" } } // Força o uso da câmera traseira
+            }}
           />
-          {legacyMode && (
-            <input
-              type="file"
-              accept="image/*"
-              capture="environment"
-              onChange={(e) => handleImageLoad(e.target.files[0])}
-            />
-          )}
         </div>
       </center>
       <center>
