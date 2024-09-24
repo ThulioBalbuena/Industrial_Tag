@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import QrScanner from "react-qr-scanner";
+import QrScanner from 'react-qr-scanner'; // Certifique-se de que este componente está importado corretamente
 import { Link } from "react-router-dom";
 import { ArrowBack, ReplayOutlined } from '@mui/icons-material';
 import { Fab, TextField } from '@mui/material';
@@ -7,9 +7,10 @@ import { Fab, TextField } from '@mui/material';
 function Identifier() {
   const [data, setData] = useState("");
 
+  // Função para capturar os dados do QR code
   const handleScan = (result) => {
     if (result) {
-      setData(result.text);
+      setData(result); // Não use 'result.text', pois o `react-qr-scanner` retorna a string diretamente
     }
   };
 
@@ -17,11 +18,12 @@ function Identifier() {
     console.error(err);
   };
 
+  // Função para dividir o QR code em partes
   function getValue(string, j) {
     return string.split(/[}_{]+/)[j];
   }
 
-  // Dividindo o QR code em partes
+  // Inicializa com '...'
   const resposta = new Array(5).fill("...");
   for (let t = 0; t < 3; t++) {
     const value = getValue(data, t);
@@ -45,9 +47,12 @@ function Identifier() {
       <br />
       <QrScanner
         delay={300}
-        style={{ width: '100%' }}
         onError={handleError}
-        onScan={handleScan}
+        onScan={handleScan} // Use 'onScan' em vez de 'onResult' ou 'onUpdate'
+        style={{ width: '100%' }}
+        constraints={{
+          video: { facingMode: { exact: "environment" } } // Força o uso da câmera traseira
+        }}
       />
       <div>
         <TextField

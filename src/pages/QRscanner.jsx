@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Fab, TextField } from '@mui/material';
-import { QrScanner } from "react-qr-scanner";
+import QrReader from 'react-qr-scanner';  // Certifique-se de que está importando corretamente
 import jsPDF from "jspdf";
 import { ArrowBack } from '@mui/icons-material';
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import QRcode from "qrcode";
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
+  const [legacyMode, setLegacyMode] = useState(false);
 
   const handleScan = (data) => {
     if (data) {
@@ -19,6 +20,23 @@ function QRscanner() {
 
   const handleError = (err) => {
     console.error(err);
+    if (err.name === 'NotReadableError' || err.name === 'OverconstrainedError') {
+      setLegacyMode(true);
+    }
+  };
+
+  const handleImageLoad = (file) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.src = reader.result;
+        img.onload = () => {
+          setQrscan("Simulando escaneamento da imagem...");
+        };
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleChange = (event) => {
@@ -91,7 +109,6 @@ function QRscanner() {
       lote: resposta[5],
     };
 
-    // Enviando os dados escaneados para o MongoDB
     sendQRCodeDataToBackend(qrData);
 
     var doc = new jsPDF({
@@ -148,12 +165,11 @@ function QRscanner() {
 
         for (var j = 0; j < check; j++) {
           auxx++;
-          doc.addPage(); // Adiciona uma nova página para cada etiqueta
+          doc.addPage(); 
 
           doc.setLineWidth(1);
           doc.rect(3, 3, 95, 35, "S");
 
-          // Adicionando textos e linhas
           doc.setLineWidth(0.5);
           doc.setFontSize(8.5);
           doc.setFont("helvetica");
@@ -199,25 +215,21 @@ function QRscanner() {
           doc.line(30, 29, 30, 38);
           doc.text(resposta[3], 48, 27);
 
-          var qrElementArray = [...resposta]; // Cria uma cópia do array resposta
+          var qrElementArray = [...resposta]; 
           qrElementArray[4] = valor.toString();
           var qrElement = qrElementArray.join('|');
           
           if (qrElement) {
-            // Create a new canvas element
             let canvas = document.createElement('canvas');
           
-            // Generate the QR Code on the canvas
             QRcode.toCanvas(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
               if (error) {
                 console.error(error);
                 return;
               }
           
-              // Convert the canvas content to a data URL
               var qrImageData = canvas.toDataURL("image/png");
           
-              // Add the QR Code image to the PDF
               doc.addImage(qrImageData, "PNG", 80,20.5, 17, 17);
             });
           }
@@ -246,12 +258,21 @@ function QRscanner() {
       <span>QR Scanner</span>
       <center>
         <div style={{ marginTop: 30 }}>
-          <QrScanner
+          <QrReader
             delay={300}
             onError={handleError}
             onScan={handleScan}
             style={{ height: 200, width: 200 }}
+            legacyMode={legacyMode}
           />
+          {legacyMode && (
+            <input
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onChange={(e) => handleImageLoad(e.target.files[0])}
+            />
+          )}
         </div>
       </center>
       <center>
