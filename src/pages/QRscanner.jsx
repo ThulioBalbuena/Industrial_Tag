@@ -80,9 +80,9 @@ function QRscanner() {
       alert("Quantidade de pacotes inválida!");
       return;
     }
-
+  
     alert("VERIFIQUE se a quantidade de pacotes está correta: " + pacote);
-
+  
     var nome = 0;
     const date = new Date().toLocaleDateString();
     var auxx = 0;
@@ -90,27 +90,28 @@ function QRscanner() {
     var valor;
     var lote, fab;
     var check;
-
+    var totalPacotesInseridos = 0;
+  
     // Organizando os dados para enviar ao MongoDB
     const qrData = {
       codigo: resposta[0],
       descricao: resposta[1],
-      quantidade: pacote,
+      quantidade: resposta[4],
       localizacao: resposta[6],
       dataRecebimento: date,
       lote: resposta[5],
     };
-
+  
     sendQRCodeDataToBackend(qrData);
-
+  
     var doc = new jsPDF({
       orientation: "landscape",
       unit: "mm",
       format: [100, 40],
     });
-
+  
     doc.deletePage(1);
-
+  
     for (var i = 0; i < pacote; i++) {
       if (quantrest > 0) {
         nome++;
@@ -125,15 +126,24 @@ function QRscanner() {
               ajuda
           );
         }
+  
         valor = window.prompt("Digite o valor do pacote " + nome + ": ");
         check = parseInt(window.prompt("Quantos pacotes contêm esse mesmo valor? "), 10);
         if (isNaN(check) || check <= 0) {
           alert("Quantidade de pacotes inválida!");
           return;
         }
+  
         valor = valor.replace(",", ".");
         valor = parseFloat(valor);
-
+  
+        // Verificar se a quantidade total de pacotes não excede a quantidade de pacotes inicial
+        totalPacotesInseridos += check;
+        if (totalPacotesInseridos > pacote) {
+          alert("Erro: A quantidade de pacotes inseridos excede o total de pacotes permitido.");
+          return;
+        }
+  
         while (valor > quantrest || valor <= 0 || isNaN(valor)) {
           valor = parseFloat(
             window.prompt(
@@ -148,22 +158,25 @@ function QRscanner() {
             return;
           }
         }
-
+  
         quantrest = parseFloat((quantrest - valor * check).toFixed(2));
+  
+        // Verificar se a quantidade restante é negativa
         if (quantrest < 0) {
           alert("Erro: Valor total do produto ultrapassado");
           window.location.reload();
         }
-
+  
         valor = valor.toString().replace(".", ",");
-
+  
         for (var j = 0; j < check; j++) {
           auxx++;
-          doc.addPage(); 
-
+          doc.addPage();
+  
+          // Gerar o PDF do pacote
           doc.setLineWidth(1);
           doc.rect(3, 3, 95, 35, "S");
-
+  
           doc.setLineWidth(0.5);
           doc.setFontSize(8.5);
           doc.setFont("helvetica");
@@ -208,30 +221,31 @@ function QRscanner() {
           doc.line(16, 29, 16, 38);
           doc.line(30, 29, 30, 38);
           doc.text(resposta[3], 48, 27);
-
+  
+          // **Parte para gerar o QR Code** 
           var qrElementArray = [...resposta]; 
           qrElementArray[4] = valor.toString();
           var qrElement = qrElementArray.join('|');
-          
+            
           if (qrElement) {
             let canvas = document.createElement('canvas');
-          
+            
             QRcode.toCanvas(canvas, qrElement, { errorCorrectionLevel: "H" }, function (error) {
               if (error) {
                 console.error(error);
                 return;
               }
-          
+            
               var qrImageData = canvas.toDataURL("image/png");
-          
+            
               doc.addImage(qrImageData, "PNG", 80,20.5, 17, 17);
             });
           }
         }
       }
     }
-
-    if (quantrest === 0) {
+  
+    if (quantrest === 0 && totalPacotesInseridos === pacote) {
       doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
       alert("Pdfs gerados com sucesso!");
     } else {
@@ -241,6 +255,8 @@ function QRscanner() {
       window.location.reload();
     }
   };
+  
+  
 
   return (
     <div>
