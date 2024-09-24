@@ -60,31 +60,25 @@ function StockPage() {
           </Typography>
         </div>
       ) : (
-        <FormControl fullWidth variant="filled" style={{ marginTop: 20 }}>
-          <InputLabel id="product-select-label">Selecione o Produto</InputLabel>
-          <Select
-            labelId="product-select-label"
-            id="product-select"
-            value={selectedProduct}
-            onChange={handleProductChange}
-          >
-            {stockData.map((product, index) => (
-              <MenuItem 
-                key={index} 
-                value={product.codigo}
-                style={{
-                  whiteSpace: 'normal', // Permite quebra de linha
-                  wordWrap: 'break-word' // Quebra de palavras longas
-                }}
-              >
-                {product.descricao} (Código: {product.codigo})
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <FormControl variant="filled" style={{ marginTop: 20, width: '100%', maxWidth: '400px' }}>
+        <InputLabel id="product-select-label">Selecione o Produto</InputLabel>
+        <Select
+          labelId="product-select-label"
+          id="product-select"
+          value={selectedProduct}
+          onChange={handleProductChange}
+          renderValue={(selected) => null} // Esconde o item e volta ao tamanho normal
+        >
+          {stockData.map((product, index) => (
+            <MenuItem key={index} value={product.codigo} className="menu-item">
+              {`${product.descricao} (Código: ${product.codigo})`}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       )}
       {selectedProduct && (
-        <div style={{ marginTop: 20 }}>
+        <div style={{ marginTop: 20 , width: '100%', maxWidth: '450px' }}>
           <h3>Detalhes do Produto</h3>
           {stockData
             .filter((product) => product.codigo === selectedProduct)
