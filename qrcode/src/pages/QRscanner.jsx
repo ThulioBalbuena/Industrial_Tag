@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Fab, TextField } from '@mui/material';
 import QrScan from "react-qr-reader";
-import { ArrowBack } from '@mui/icons-material';;
+import { ArrowBack } from '@mui/icons-material';
 import { Link } from "react-router-dom";
 import QRCode from "qrcode.react";
 
