@@ -32,7 +32,7 @@
     "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "5.2.0",
     "react-scripts": "^3.0.1",
-    "react-table": "7.3.2",
+    "react-table": "^7.8.0",
     "react-table-plugins": "1.0.0",
     "react-web-qr-reader": "^1.0.4",
     "serve": "^6.5.8",
