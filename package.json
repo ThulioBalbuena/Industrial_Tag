@@ -48,10 +48,10 @@
     "backend": "nodemon server.js",
     "postinstall": "npm install --legacy-peer-deps"
   },
-  "engines": {
-    "node": ">=16.x <=20.x",
-    "npm": ">=6.x <=10.x"
-  },
+"engines": {
+  "node": "18.x",  
+  "npm": "9.x"
+},
   "eslintConfig": {
     "extends": [
       "react-app",
