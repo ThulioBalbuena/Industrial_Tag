@@ -1,7 +1,7 @@
 import React from "react";
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import { Link } from "react-router-dom";
-import { ArrowBack } from '@mui/icons-material';;
+import { ArrowBack } from '@mui/icons-material';
 import { Fab} from '@mui/material';
 import { TextField } from '@mui/material';
 import {ReplayOutlined} from '@mui/icons-material';
