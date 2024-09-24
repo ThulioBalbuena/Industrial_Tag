@@ -68,5 +68,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "react-qr-reader": {
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0"
+    }
   }
 }
