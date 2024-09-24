@@ -11,6 +11,11 @@ client = MongoClient(mongo_uri)
 db = client["TICKETMASTER"]
 collection = db["Stock"]
 
+# Rota para a página inicial
+@app.route('/')
+def index():
+    return "Backend Flask está rodando!"
+
 # Rota para salvar dados do QR Code
 @app.route('/api/qrcodes', methods=['POST'])
 def save_qrcode():
