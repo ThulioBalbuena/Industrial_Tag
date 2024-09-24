@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { CircularProgress, MenuItem, FormControl, Select, InputLabel, Fab } from "@mui/material";
-import { ArrowBack } from "@mui/icons-material";
+import { CircularProgress, MenuItem, FormControl, Select, InputLabel, Fab, Typography } from "@mui/material";
+import { ArrowBack, ErrorOutline} from "@mui/icons-material"; // Ícone de erro
 import { Link } from "react-router-dom";
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 function StockPage() {
   const [loading, setLoading] = useState(true);
   const [stockData, setStockData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
+  const [erro, setErro] = useState(false); // Alterado para useState
 
   useEffect(() => {
     // Função para fazer o fetch dos dados
@@ -19,6 +21,7 @@ function StockPage() {
       } catch (error) {
         console.error("Erro ao buscar dados do estoque:", error);
         setLoading(false);
+        setErro(true); // Atualiza o estado de erro
       }
     };
 
@@ -41,6 +44,20 @@ function StockPage() {
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <CircularProgress />
           <span style={{ marginLeft: "10px" }}>Carregando...</span>
+        </div>
+      ) : erro ? ( // Verifica se houve erro ao conectar ao backend
+        <div style={{ textAlign: "center", marginTop: 50 }}>
+          <SentimentVeryDissatisfiedIcon style={{ fontSize: 50, color: "gray" }} />  {/* Ícone de erro */}
+          <Typography variant="h6" style={{ marginTop: 20 }}>
+            Não foi possível conectar ao banco de dados
+          </Typography>
+        </div>
+      ) : stockData.length === 0 ? ( // Verifica se o estoque está vazio
+        <div style={{ textAlign: "center", marginTop: 50 }}>
+          <ErrorOutline style={{ fontSize: 50, color: "gray" }} />  {/* Ícone de erro */}
+          <Typography variant="h6" style={{ marginTop: 20 }}>
+            Nenhum produto encontrado no estoque
+          </Typography>
         </div>
       ) : (
         <FormControl fullWidth variant="filled" style={{ marginTop: 20 }}>
