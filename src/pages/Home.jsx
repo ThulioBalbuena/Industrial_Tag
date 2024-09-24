@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2'; // Importa o Grid instável
+import Grid from '@mui/material/Grid2'; // Importa o Grid instável
 import Icon from '@mdi/react';  
 import { mdiQrcode, mdiQrcodeScan, mdiViewList } from '@mdi/js';
 import { Link } from "react-router-dom";
