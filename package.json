@@ -11,7 +11,7 @@
     "@mdi/js": "^7.0.96",
     "@mdi/react": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
+    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.2.1",
     "aos": "^2.3.4",
     "file-saver": "^2.0.5",
@@ -24,8 +24,8 @@
     "papaparse": "5.2.0",
     "qrcode": "^1.5.3",
     "qrcode.react": "^3.1.0",
-    "react": "17.0.0",
-    "react-dom": "17.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-is": "^18.2.0",
     "react-qr-barcode-scanner": "1.0.6",
     "react-qr-reader": "2.2.1",
@@ -45,7 +45,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serv": "node server.js",
-    "backend": "nodemon server.js"
+    "backend": "nodemon server.js",
+    "postinstall": "npm install --legacy-peer-deps"
+  },
+  "engines": {
+    "node": ">=16.x <=20.x",
+    "npm": ">=6.x <=10.x"
   },
   "eslintConfig": {
     "extends": [
