@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgress, MenuItem, FormControl, Select, InputLabel, Fab, Typography } from "@mui/material";
-import { ArrowBack, ErrorOutline} from "@mui/icons-material"; // Ícone de erro
+import { ArrowBack, ErrorOutline } from "@mui/icons-material"; 
 import { Link } from "react-router-dom";
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
@@ -8,20 +8,20 @@ function StockPage() {
   const [loading, setLoading] = useState(true);
   const [stockData, setStockData] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
-  const [erro, setErro] = useState(false); // Alterado para useState
+  const [erro, setErro] = useState(false);
 
   useEffect(() => {
-    // Função para fazer o fetch dos dados
     const fetchStockData = async () => {
       try {
         const response = await fetch("https://polar-island-40233-a2032bd06f30.herokuapp.com/api/qrcodes");
+        if (!response.ok) throw new Error('Erro ao buscar dados do estoque.');
         const data = await response.json();
         setStockData(data);
         setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar dados do estoque:", error);
         setLoading(false);
-        setErro(true); // Atualiza o estado de erro
+        setErro(true);
       }
     };
 
@@ -45,16 +45,16 @@ function StockPage() {
           <CircularProgress />
           <span style={{ marginLeft: "10px" }}>Carregando...</span>
         </div>
-      ) : erro ? ( // Verifica se houve erro ao conectar ao backend
+      ) : erro ? (
         <div style={{ textAlign: "center", marginTop: 50 }}>
-          <SentimentVeryDissatisfiedIcon style={{ fontSize: 50, color: "gray" }} />  {/* Ícone de erro */}
+          <SentimentVeryDissatisfiedIcon style={{ fontSize: 50, color: "gray" }} /> 
           <Typography variant="h6" style={{ marginTop: 20 }}>
             Não foi possível conectar ao banco de dados
           </Typography>
         </div>
-      ) : stockData.length === 0 ? ( // Verifica se o estoque está vazio
+      ) : stockData.length === 0 ? (
         <div style={{ textAlign: "center", marginTop: 50 }}>
-          <ErrorOutline style={{ fontSize: 50, color: "gray" }} />  {/* Ícone de erro */}
+          <ErrorOutline style={{ fontSize: 50, color: "gray" }} /> 
           <Typography variant="h6" style={{ marginTop: 20 }}>
             Nenhum produto encontrado no estoque
           </Typography>
@@ -69,7 +69,14 @@ function StockPage() {
             onChange={handleProductChange}
           >
             {stockData.map((product, index) => (
-              <MenuItem key={index} value={product.codigo}>
+              <MenuItem 
+                key={index} 
+                value={product.codigo}
+                style={{
+                  whiteSpace: 'normal', // Permite quebra de linha
+                  wordWrap: 'break-word' // Quebra de palavras longas
+                }}
+              >
                 {product.descricao} (Código: {product.codigo})
               </MenuItem>
             ))}
