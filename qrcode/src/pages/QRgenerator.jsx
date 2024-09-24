@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {Fab, TextField, Grid} from '@material-ui/core'
+import {Fab, TextField} from '@mui/material'
+import Grid from '@mui/material/Grid';
 import {ArrowBack, GetApp} from '@material-ui/icons'
 import { Link } from "react-router-dom";
 import QRcode from 'qrcode.react'

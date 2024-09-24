@@ -45,8 +45,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serv": "node server.js",
-    "backend": "nodemon server.js",
-    "postinstall": "npm install --legacy-peer-deps"
+    "backend": "nodemon server.js"
   },
 "engines": {
   "node": "18.x",  

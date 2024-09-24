@@ -1,4 +1,5 @@
-import {Grid, Button, Typography} from '@material-ui/core';
+import { Button, Typography} from '@mui/material';
+import Grid from '@mui/material/Grid';
 import Icon from '@mdi/react'
 import { mdiQrcode, mdiQrcodeScan, mdiViewList } from '@mdi/js';
 import { Link } from "react-router-dom";
