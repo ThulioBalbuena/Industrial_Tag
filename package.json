@@ -3,41 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "^6.1.2",
-    "@capacitor/cli": "^6.1.2",
-    "@capacitor/core": "^6.1.2",
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@mdi/js": "^7.0.96",
-    "@mdi/react": "^1.6.1",
-    "@mui/icons-material": "^6.1.1",
-    "@mui/material": "^6.1.1",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.2.1",
-    "aos": "^2.3.4",
-    "file-saver": "^2.0.5",
-    "html-to-image": "^1.11.11",
-    "jspdf": "^2.5.1",
-    "jspdf-autotable": "^3.5.25",
-    "mongodb": "^6.9.0",
-    "namor": "^2.0.4",
-    "papaparse": "5.2.0",
-    "qrcode": "^1.5.3",
-    "qrcode.react": "^3.1.0",
+    "other-dependencies": "...",
+    "qrcode": "file:",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-is": "^18.2.0",
-    "react-qr-reader": "2.2.1",
-    "react-qr-scanner": "^1.0.0-alpha.11",
-    "react-router-dom": "5.2.0",
-    "react-scripts": "^3.0.1",
-    "react-table": "^7.8.0",
-    "react-table-plugins": "1.0.0",
-    "react-web-qr-reader": "^1.0.4",
-    "serve": "^6.5.8",
-    "styled-components": "5.1.1",
-    "web-vitals": "^2.1.0"
+    "react-dom": "^18.0.0"
+  },
+  "overrides": {
+    "*": {
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0"
+    }
   },
   "scripts": {
     "start": "react-scripts start",
@@ -68,11 +43,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "overrides": {
-    "react-qr-reader": {
-      "react": "^18.0.0",
-      "react-dom": "^18.0.0"
-    }
   }
 }
