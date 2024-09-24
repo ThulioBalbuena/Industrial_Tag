@@ -3,7 +3,7 @@ import { Fab, TextField } from '@mui/material';
 import QrScan from "react-qr-reader";
 import { ArrowBack } from '@mui/icons-material';
 import { Link } from "react-router-dom";
-import QRCode from "qrcode.react";
+import { QRCodeCanvas } from "qrcode.react";
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
@@ -120,7 +120,7 @@ function QRscanner() {
       <div>
         <center>
           <div>
-            <QRCode id="myqr" value={qrscan} size={75} includeMargin={false} />
+            <QRCodeCanvas id="myqr" value={qrscan} size={75} includeMargin={false} />
           </div>
         </center>
         <center>
