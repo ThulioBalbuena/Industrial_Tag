@@ -1,8 +1,7 @@
 [build]
-  command = "yarn build"
-  publish = "/build"
-  base ="/qrcode"
-
+  command = "npm run build"  
+  publish = "build"          
+  base = "qrcode"            
 [[redirects]]
   from = "/*"
   to = "/index.html"
