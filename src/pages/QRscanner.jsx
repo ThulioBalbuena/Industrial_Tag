@@ -184,7 +184,7 @@ function QRscanner() {
           doc.setLineWidth(0.5);
           doc.setFontSize(7);         
           doc.text(4, 19, "DESCRIÇÃO:");
-          doc.text(resposta[1], 21, 19);           
+          doc.text(resposta[0], 21, 19);           
           doc.line(98, 15, 58, 15);
           doc.line(77, 29, 3, 29);
           doc.line(43, 38, 43, 29);
@@ -196,12 +196,11 @@ function QRscanner() {
           doc.text(31, 32, "Pacote:");
           doc.setFontSize(6.5);
           doc.text(60, 10, '"Usar peças antigas primeiro"');
-          doc.text(resposta[7], 16, 11.5);          
           doc.line(59, 29, 59, 38);        
           doc.text(4, 23, "PN:");
-          doc.text(resposta[0], 9, 23);            
+          doc.text(resposta[7], 9, 23);            
           doc.text(4, 11.5, "CÓDIGO:");
-          doc.text(resposta[1], 9, 11.5);          
+          doc.text(resposta[1], 15, 11.5);          
           doc.text("Recebido:", 60, 13.5);
           doc.text(date, 75, 13.5);         
           doc.text("Grupo:", 4, 32);
