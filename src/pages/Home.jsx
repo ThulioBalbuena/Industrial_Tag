@@ -27,41 +27,47 @@ const closeButtonStyle = {
 
 const headerStyle = {
     color: 'black', 
-    padding: '40px 0', // Espaçamento acima e abaixo do header
+    padding: '30px 0', // Ajusta o espaçamento acima e abaixo
     textAlign: 'center', // Centraliza o texto
   };
   
-
-const titleStyle = {
-  fontWeight: 'bold', // Deixa o título em negrito
-  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', // Sombra no texto
-};
-
-const subtitleStyle = {
-  fontWeight: 'lighter', // Texto mais fino para o subtítulo
-  marginTop: '10px', // Espaço entre título e subtítulo
-};
-
-function Home() {
+  const titleStyle = {
+    fontWeight: 'bold', // Negrito
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', // Sombra no texto
+    fontSize: '2.5rem', // Reduz o tamanho da fonte do título
+  };
+  
+  const subtitleStyle = {
+    fontWeight: 'lighter', // Texto mais fino para o subtítulo
+    marginTop: '10px', // Espaçamento entre o título e subtítulo
+    fontSize: '1.0rem', // Reduz o tamanho do subtítulo
+  };
+  
+  function Home() {
     const [open, setOpen] = useState(false);
-
+  
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
+  
     AOS.init();
-
+  
     return (
-        <div className='Home'>
-            {/* Header com melhorias */}
-            <div style={headerStyle}>
-                <Typography variant="h2" style={titleStyle}>
-                    Industrial Tag
-                    <Icon path={mdiTagMultiple} size={2} color="black" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))' }} 
-                    />
-                </Typography>
-                <Typography variant="h4" style={subtitleStyle}>
-                    Generation & Scan
-                </Typography>
+      <div className='Home'>
+        {/* Header com melhorias */}
+        <div style={headerStyle}>
+          <Typography variant="h2" style={titleStyle}>
+            Industrial Tag
+            <Icon
+              path={mdiTagMultiple}
+              size={1.5} // Diminui o tamanho do ícone
+              color="black"
+              style={{ filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))' }} 
+            />
+          </Typography>
+          <Typography variant="h4" style={subtitleStyle}>
+            Generation & Scan
+          </Typography>
+  
             </div>
 
             <Grid container direction="column" justifyContent="space-between" alignItems="center">
