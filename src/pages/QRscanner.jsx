@@ -308,7 +308,7 @@ function QRscanner() {
           maxRows={4}
           value={qrscan}
           onChange={handleChange}
-          helperText="Clique aqui e escaneie"
+          helperText="Lembre se de salvar após o scan"
         />
       </center>
       <div>
