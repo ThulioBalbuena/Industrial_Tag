@@ -10,7 +10,7 @@ function Identifier() {
   // Função para capturar os dados do QR code
   const handleScan = (result) => {
     if (result && result.text) {
-      setData(result.text); // Certifique-se de acessar 'result.text' (como o `react-qr-scanner` retorna um objeto)
+      setData(result.text); // Certifique-se de acessar 'result.text' (como o react-qr-scanner retorna um objeto)
     }
   };
 
@@ -21,15 +21,15 @@ function Identifier() {
     }
   };
 
-  // Função para dividir o QR code em partes
+  // Função para dividir o QR code em partes, usando o delimitador '|'
   function getValue(string, index) {
-    return string ? string.split(/[}_{]+/)[index] : "...";
+    return string ? string.split('|')[index] || "..." : "..."; // Usa '|' como delimitador
   }
 
   // Inicializa as variáveis com valores padrão ('...')
-  const pn = getValue(data, 7);       // Número de Série (PN)
-  const codigo = getValue(data, 1);   // Código
-  const descricao = getValue(data, 0); // Descrição
+  const descricao = getValue(data, 0);  // Descrição
+  const codigo = getValue(data, 1);     // Código
+  const pn = getValue(data, 7);         // Número de Série (PN)
 
   // Atualiza o estado do código escaneado
   const handleChange = (event) => {
