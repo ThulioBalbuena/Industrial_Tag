@@ -35,7 +35,7 @@ function StockPage() {
   return (
     <div style={{ padding: "20px" }}>
       <Link to="/">
-        <Fab style={{ marginBottom: 20 }} color="primary">
+        <Fab style={{ marginBottom: 20 }} sx={{ backgroundColor: '#002171' }} color="primary">
           <ArrowBack />
         </Fab>
       </Link>

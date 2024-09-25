@@ -4,7 +4,7 @@ import QrReader from 'react-qr-scanner';
 import jsPDF from "jspdf";
 import { ArrowBack } from '@mui/icons-material';
 import { Link } from "react-router-dom";
-import QRCode from "qrcode.react";
+import QRCodeCanvas from "qrcode.react";
 import QRcode from "qrcode";
 
 function QRscanner() {
@@ -267,7 +267,8 @@ function QRscanner() {
   return (
     <div>
       <Link to="/">
-        <Fab style={{ marginRight: 10 }} color="primary">
+        <Fab style={{ marginRight: 10 }} sx={{ backgroundColor: '#002171' }}
+        color="primary">
           <ArrowBack />
         </Fab>
       </Link>
@@ -300,12 +301,13 @@ function QRscanner() {
       <div>
         <center>
           <div>
-            <QRCode id="myqr" value={qrscan} size={75} includeMargin={false} />
+            <QRCodeCanvas id="myqr" value={qrscan} size={75} includeMargin={false} />
           </div>
         </center>
         <center>
           <Fab
             variant="extended"
+            sx={{ backgroundColor: '#002171' }}
             color="primary"
             aria-label="add"
             onClick={handleClick}

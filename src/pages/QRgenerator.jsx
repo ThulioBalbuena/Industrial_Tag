@@ -26,7 +26,7 @@ function QRgenerator() {
     return (
       <div>
             <Link to="/">
-            <Fab style={{marginRight:10}} color="primary">
+            <Fab style={{marginRight:10}} sx={{ backgroundColor: '#002171' }} color='primary'>
                 <ArrowBack/>
             </Fab>
             </Link>
@@ -55,7 +55,7 @@ function QRgenerator() {
                     qr ? 
                     <Grid container>
                         <Grid item xs={2}>
-                        <Fab onClick={downloadQR} style={{marginLeft:10}} color="secondary">
+                        <Fab onClick={downloadQR} style={{marginLeft:10}} sx={{ backgroundColor: '#002171' }} color="primary">
                             <GetApp/>
                         </Fab>
                         </Grid>

@@ -27,7 +27,7 @@ function Home() {
                 <div data-aos="fade-up">
                     <Grid>
                         <Link to="/qr_scanner">
-                            <Button variant="contained" size="large" color="primary">
+                            <Button variant="contained" size="large" sx={{ backgroundColor: '#002171' }}>
                                 <Icon 
                                     style={{ padding: 10 }}
                                     path={mdiQrcodeScan}
@@ -44,7 +44,7 @@ function Home() {
                 <div data-aos="fade-up">
                     <Grid>
                         <Link to="/stock">
-                            <Button variant="contained" size="large" color="primary">
+                            <Button variant="contained" size="large" sx={{ backgroundColor: '#002171' }}>
                                 <Icon 
                                     style={{ padding: 10 }}
                                     path={mdiWarehouse}
@@ -59,7 +59,7 @@ function Home() {
                     <br></br>
                     <Grid>
                         <Link to="/identifier">
-                            <Button variant="contained" size="large" color="primary">
+                            <Button variant="contained" size="large" sx={{ backgroundColor: '#002171' }}>
                                 <Icon 
                                     style={{ padding: 10 }}
                                     path={mdiViewList}
@@ -74,7 +74,7 @@ function Home() {
                     <br></br>
                     <Grid>
                         <Link to="/qr_generator">
-                            <Button variant="contained" size="large" color="primary">
+                            <Button variant="contained" size="large" sx={{ backgroundColor: '#002171' }}>
                                 <Icon 
                                     style={{ padding: 10 }}
                                     path={mdiQrcode}

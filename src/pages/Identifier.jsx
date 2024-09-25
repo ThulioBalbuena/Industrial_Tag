@@ -39,7 +39,7 @@ function Identifier() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <Link to="/">
-        <Fab style={{ marginRight: 10 }} color="primary">
+        <Fab style={{ marginRight: 10 }} sx={{ backgroundColor: '#002171' }} color="primary">
           <ArrowBack />
         </Fab>
       </Link>
@@ -68,7 +68,7 @@ function Identifier() {
           onChange={handleChange}
           helperText="Clique aqui e escaneie"
         />
-        <Fab style={{ marginLeft: 10 }} color="primary" onClick={() => setData("")}>
+        <Fab style={{ marginLeft: 10 }} sx={{ backgroundColor: '#002171' }} color="primary" onClick={() => setData("")}>
           <ReplayOutlined />
         </Fab>
       </div>
