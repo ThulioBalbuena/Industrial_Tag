@@ -13,12 +13,12 @@ function Home() {
         <div className='Home'>
             <div data-aos="fade-right">
                 <Typography style={{ margin: 20 }} variant="h2">
-                    QR Code
+                Industrial tag
                 </Typography>
             </div>
             <div data-aos="fade-left">
-                <Typography style={{ margin: 20 }} variant="h2">
-                    Generator & Scanner
+                <Typography style={{ margin: 20 }} variant="h4">
+                Generation & Scan
                 </Typography>
                 <hr></hr>
                 <br></br>
@@ -27,7 +27,7 @@ function Home() {
                 <div data-aos="fade-up">
                     <Grid>
                         <Link to="/qr_scanner">
-                            <Button variant="contained" size="large" color="secondary">
+                            <Button variant="contained" size="large" color="primary">
                                 <Icon 
                                     style={{ padding: 10 }}
                                     path={mdiQrcodeScan}
@@ -50,7 +50,7 @@ function Home() {
                                     path={mdiWarehouse}
                                     title="Stock"
                                     size={10}
-                                    color="white"
+                                    color="black"
                                 />
                             </Button>
                         </Link>
@@ -59,13 +59,13 @@ function Home() {
                     <br></br>
                     <Grid>
                         <Link to="/identifier">
-                            <Button variant="contained" size="large" color="inherit">
+                            <Button variant="contained" size="large" color="primary">
                                 <Icon 
                                     style={{ padding: 10 }}
                                     path={mdiViewList}
                                     title="Identifier"
                                     size={10}
-                                    color="green"
+                                    color="white"
                                 />
                             </Button>
                         </Link>
@@ -80,7 +80,7 @@ function Home() {
                                     path={mdiQrcode}
                                     title="QR Generator"
                                     size={10}
-                                    color="white"
+                                    color="black"
                                 />
                             </Button>
                         </Link>
