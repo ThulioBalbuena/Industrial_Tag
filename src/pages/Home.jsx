@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Typography, Modal, Box, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Icon from '@mdi/react';  
-import { mdiQrcode, mdiQrcodeScan, mdiViewList, mdiPackageDown, mdiClose } from '@mdi/js';
+import { mdiQrcode, mdiQrcodeScan, mdiViewList, mdiPackageDown, mdiClose, mdiTagMultiple } from '@mdi/js';
 import { Link } from "react-router-dom";
 import AOS from 'aos';
 import './logo.css';
@@ -25,6 +25,22 @@ const closeButtonStyle = {
   right: '10px',
 };
 
+const headerStyle = {   
+  color: 'black', // Texto branco
+  padding: '40px 0', // Espaçamento acima e abaixo do header
+  textAlign: 'center', // Centraliza o texto
+};
+
+const titleStyle = {
+  fontWeight: 'bold', // Deixa o título em negrito
+  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', // Sombra no texto
+};
+
+const subtitleStyle = {
+  fontWeight: 'lighter', // Texto mais fino para o subtítulo
+  marginTop: '10px', // Espaço entre título e subtítulo
+};
+
 function Home() {
     const [open, setOpen] = useState(false);
 
@@ -35,18 +51,18 @@ function Home() {
 
     return (
         <div className='Home'>
-            <div data-aos="fade-right">
-                <Typography style={{ margin: 20 }} variant="h2">
-                Industrial tag
+            {/* Header com melhorias */}
+            <div style={headerStyle}>
+                <Typography variant="h2" style={titleStyle}>
+                    Industrial Tag
+                    <Icon path={mdiTagMultiple} size={2} color="black" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))' }} 
+                    />
+                </Typography>
+                <Typography variant="h4" style={subtitleStyle}>
+                    Generation & Scan
                 </Typography>
             </div>
-            <div data-aos="fade-left">
-                <Typography style={{ margin: 20 }} variant="h4">
-                Generation & Scan
-                </Typography>
-                <hr></hr>
-                <br></br>
-            </div>
+
             <Grid container direction="column" justifyContent="space-between" alignItems="center">
                 <div data-aos="fade-up">
                     <Grid>
