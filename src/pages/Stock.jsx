@@ -68,6 +68,13 @@ function StockPage() {
           value={selectedProduct}
           onChange={handleProductChange}
           renderValue={(selected) => null} // Esconde o item e volta ao tamanho normal
+          MenuProps={{
+            PaperProps: {
+              style: {
+                whiteSpace: 'normal', // Garante quebra de linha no dropdown
+              },
+            },
+          }}
         >
           {stockData.map((product, index) => (
             <MenuItem key={index} value={product.codigo} className="menu-item">
