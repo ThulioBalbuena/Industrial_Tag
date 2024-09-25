@@ -9,8 +9,8 @@ function Identifier() {
 
   // Função para capturar os dados do QR code
   const handleScan = (result) => {
-    if (result) {
-      setData(result); // Não use 'result.text', pois o `react-qr-scanner` retorna a string diretamente
+    if (result && result.text) {
+      setData(result.text); // Certifique-se de acessar 'result.text' (como o `react-qr-scanner` retorna um objeto)
     }
   };
 
@@ -21,10 +21,9 @@ function Identifier() {
     }
   };
   
-
   // Função para dividir o QR code em partes
   function getValue(string, j) {
-    return string.split(/[}_{]+/)[j];
+    return string ? string.split(/[}_{]+/)[j] : "...";
   }
 
   // Inicializa com '...'
@@ -52,9 +51,9 @@ function Identifier() {
       <QrScanner
         delay={300}
         onError={handleError}
-        onScan={handleScan} // Use 'onScan' em vez de 'onResult' ou 'onUpdate'
-        style={{ width: '100%' }}
-        legacymode  ={true}
+        onScan={handleScan}
+        style={{ height: 200, width: 200 }}  // Ajuste de tamanho para igualar o qrscanner
+        legacymode={true}
         constraints={{
           video: { facingMode: { exact: "environment" } } // Força o uso da câmera traseira
         }}
