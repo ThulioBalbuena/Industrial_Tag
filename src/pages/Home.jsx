@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Typography, Modal, Box } from '@mui/material';
+import { Button, Typography, Modal, Box, IconButton } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import Icon from '@mdi/react';  
-import { mdiQrcode, mdiQrcodeScan, mdiViewList, mdiPackageDown } from '@mdi/js';
+import { mdiQrcode, mdiQrcodeScan, mdiViewList, mdiPackageDown, mdiClose } from '@mdi/js';
 import { Link } from "react-router-dom";
 import AOS from 'aos';
 import './logo.css';
@@ -17,6 +17,12 @@ const modalStyle = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+};
+
+const closeButtonStyle = {
+  position: 'absolute',
+  bottom: '10px',
+  right: '10px',
 };
 
 function Home() {
@@ -151,6 +157,11 @@ function Home() {
                             </Grid>
                         </Grid>
                     </Typography>
+
+                    {/* Botão X para fechar o modal */}
+                    <IconButton onClick={handleClose} sx={closeButtonStyle}>
+                        <Icon path={mdiClose} size={1} color="black" />
+                    </IconButton>
                 </Box>
             </Modal>
 
