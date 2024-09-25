@@ -5,7 +5,7 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)  # Habilitar CORS
+CORS(app)
 
 # Configurar a conexão com MongoDB usando uma variável de ambiente
 mongo_uri = os.getenv("MONGO_URI", "mongodb+srv://thulio:admin@cluster0.hmnh1.mongodb.net/TICKETMASTER?retryWrites=true&w=majority")
@@ -22,26 +22,17 @@ def index():
 def save_qrcode():
     try:
         data = request.json
+        # Verificar se já existe um documento com o mesmo "codigo"
+        existing_product = collection.find_one({"codigo": data.get("codigo")})
         
-        # Verificar se já existe um QR code com os mesmos dados
-        existing_qrcode = collection.find_one({
-            "codigo": data["codigo"],
-            "descricao": data["descricao"],
-            "quantidade": data["quantidade"],
-            "localizacao": data["localizacao"],
-            "lote": data["lote"]
-        })
+        if existing_product:
+            return jsonify({"message": "Produto com este código já existe, não foi salvo."}), 400
         
-        if existing_qrcode:
-            return jsonify({"message": "Dados duplicados. Este QR code já foi inserido."}), 409  # HTTP 409 Conflict
-        
-        # Inserir novo QR code se não houver duplicatas
+        # Se não existe, inserir o novo documento
         collection.insert_one(data)
         return jsonify({"message": "Dados do QR Code salvos com sucesso!"}), 200
-
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 # Rota para obter todos os dados
 @app.route('/api/qrcodes', methods=['GET'])
