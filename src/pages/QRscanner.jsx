@@ -20,11 +20,10 @@ function QRscanner() {
       if (qrArray.length === 8) {
         setButtonColor('#4CAF50'); // Verde para sucesso
         setIsButtonDisabled(false); // Habilita o botão
-        alert("QR code escaneado corretamente!");
       } else {
         setButtonColor('#f44336'); // Vermelho para erro
         setIsButtonDisabled(true); // Desabilita o botão
-        alert("QR code escaneado não representa um item real.");
+        alert("O QR code escaneado não representa um item real.");
       }
     }
   };
