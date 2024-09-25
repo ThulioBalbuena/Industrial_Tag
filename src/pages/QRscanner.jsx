@@ -16,12 +16,18 @@ function QRscanner() {
   const handleScan = (data) => {
     if (data) {
       setQrscan(data.text); 
-      setButtonColor('#4CAF50'); // Escaneamento bem-sucedido
-      setIsButtonDisabled(false); 
-      alert(data.text);
+      const qrArray = data.text.split('|');
+      if (qrArray.length === 8) {
+        setButtonColor('#4CAF50'); // Verde para sucesso
+        setIsButtonDisabled(false); // Habilita o botão
+        alert("QR code escaneado corretamente!");
+      } else {
+        setButtonColor('#f44336'); // Vermelho para erro
+        setIsButtonDisabled(true); // Desabilita o botão
+        alert("QR code escaneado não representa um item real.");
+      }
     }
   };
-
   const handleError = (err) => {
     console.error(err);
     if (!qrscan) {  // Verifica se já houve uma tentativa de escanear
