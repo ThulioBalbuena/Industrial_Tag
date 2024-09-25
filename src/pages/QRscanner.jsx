@@ -52,7 +52,7 @@ function QRscanner() {
   }
 
   const sendQRCodeDataToBackend = async (qrData) => {
-    console.log("Dados enviados:", qrData); // Adicione este log para depuração
+   console.log("Dados enviados:", qrData); // Adicione este log para depuração
     try {
       const response = await fetch("https://polar-island-40233-a2032bd06f30.herokuapp.com/api/qrcodes", {  // Ajuste a URL para o endpoint do Flask
         method: "POST",
@@ -70,10 +70,10 @@ function QRscanner() {
       alert(data.message || "Dados do QR Code salvos com sucesso!");  // Exibe a mensagem do back-end ou uma padrão
     } catch (error) {
       console.error("Erro ao enviar dados para o backend Python:", error);
-      alert("Erro ao salvar os dados: " + error.message);
     }
   };
   
+
   const handleClick = () => {
     var pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
     if (isNaN(pacote) || pacote <= 0) {
@@ -161,12 +161,12 @@ function QRscanner() {
   
         // Verificar se a quantidade restante é negativa
         if (quantrest < 0) {
-          alert("Erro: Valor total do produto ultrapassado");
-          window.location.reload();
-        }
+          alert("Erro: Valor total do produto ultrapassado. Verifique os valores.");
+          return;  // Ao invés de recarregar a página, simplesmente exibe o alerta.
+        }        
   
         valor = valor.toString().replace(".", ",");
-  
+
         for (var j = 0; j < check; j++) {
           auxx++;
           doc.addPage();

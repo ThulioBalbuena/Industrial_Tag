@@ -79,7 +79,7 @@ function StockPage() {
         >
         {stockData.map((product, index) => (
               <MenuItem key={index} value={product.codigo} style={{ whiteSpace: 'normal' }}>
-                {`${product.descricao} (Código: ${product.codigo})`}
+                {`${product.descricao}`}
               </MenuItem>
             ))}
           </Select>
@@ -92,8 +92,8 @@ function StockPage() {
             .filter((product) => product.codigo === selectedProduct)
             .map((product, index) => (
               <div key={index}>
-                <p><strong>Código:</strong> {product.codigo}</p>
                 <p><strong>Descrição:</strong> {product.descricao}</p>
+                <p><strong>Código:</strong> {product.codigo}</p>
                 <p><strong>Quantidade:</strong> {product.quantidade}</p>
                 <p><strong>Localização:</strong> {product.localizacao}</p>
                 <p><strong>Data de Recebimento:</strong> {product.dataRecebimento}</p>
