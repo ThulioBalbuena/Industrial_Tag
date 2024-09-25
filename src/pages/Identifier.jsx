@@ -20,18 +20,16 @@ function Identifier() {
       alert("Permissão de câmera negada. Verifique as configurações do navegador.");
     }
   };
-  
+
   // Função para dividir o QR code em partes
-  function getValue(string, j) {
-    return string ? string.split(/[}_{]+/)[j] : "...";
+  function getValue(string, index) {
+    return string ? string.split(/[}_{]+/)[index] : "...";
   }
 
-  // Inicializa com '...'
-  const resposta = new Array(5).fill("...");
-  for (let t = 0; t < 3; t++) {
-    const value = getValue(data, t);
-    resposta[t] = value !== undefined ? value : "...";
-  }
+  // Inicializa as variáveis com valores padrão ('...')
+  const pn = getValue(data, 7);       // Número de Série (PN)
+  const codigo = getValue(data, 1);   // Código
+  const descricao = getValue(data, 0); // Descrição
 
   // Atualiza o estado do código escaneado
   const handleChange = (event) => {
@@ -39,7 +37,7 @@ function Identifier() {
   };
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <Link to="/">
         <Fab style={{ marginRight: 10 }} color="primary">
           <ArrowBack />
@@ -48,16 +46,18 @@ function Identifier() {
       <span>QR Scanner</span>
       <br />
       <br />
-      <QrScanner
-        delay={300}
-        onError={handleError}
-        onScan={handleScan}
-        style={{ height: 200, width: 200 }}  // Ajuste de tamanho para igualar o qrscanner
-        legacymode={true}
-        constraints={{
-          video: { facingMode: { exact: "environment" } } // Força o uso da câmera traseira
-        }}
-      />
+      <div style={{ display: 'flex', justifyContent: 'center' }}> {/* Contêiner centralizado */}
+        <QrScanner
+          delay={300}
+          onError={handleError}
+          onScan={handleScan}
+          style={{ height: 200, width: 200 }}  // Ajuste de tamanho para igualar o qrscanner
+          legacymode={true}
+          constraints={{
+            video: { facingMode: { exact: "environment" } } // Força o uso da câmera traseira
+          }}
+        />
+      </div>
       <div>
         <TextField
           label="Código escaneado: "
@@ -74,11 +74,11 @@ function Identifier() {
       </div>
       <div>
         <center>
-          <h7>Número de Série: </h7>
+          <h7>Número de Série (PN): </h7>
           <TextField
             style={{ fontSize: 17, width: 220, height: 100, marginTop: 5 }}
             maxRows={4}
-            value={resposta[0]}
+            value={pn}  // Exibe o Número de Série (PN)
           />
         </center>
         <center>
@@ -86,7 +86,7 @@ function Identifier() {
           <TextField
             style={{ fontSize: 17, width: 220, height: 100, marginTop: 5 }}
             maxRows={4}
-            value={resposta[1]}
+            value={codigo}  // Exibe o Código
           />
         </center>
         <center>
@@ -94,11 +94,11 @@ function Identifier() {
           <TextField
             style={{ fontSize: 17, width: 220, height: 100, marginTop: 5 }}
             maxRows={4}
-            value={resposta[2]}
+            value={descricao}  // Exibe a Descrição
           />
         </center>
       </div>
-    </>
+    </div>
   );
 }
 
