@@ -90,7 +90,7 @@ function QRscanner() {
     var valor;
     var lote, fab;
     var check;
-    var totalPacotesInseridos = 0;
+    var pacotesinseridos = 0;
   
     // Organizando os dados para enviar ao MongoDB
     const qrData = {
@@ -101,9 +101,7 @@ function QRscanner() {
       dataRecebimento: date,
       lote: resposta[5],
     };
-  
-    sendQRCodeDataToBackend(qrData);
-  
+    
     var doc = new jsPDF({
       orientation: "landscape",
       unit: "mm",
@@ -137,10 +135,10 @@ function QRscanner() {
         valor = valor.replace(",", ".");
         valor = parseFloat(valor);
   
+        pacotesinseridos = pacotesinseridos + check;
         // Verificar se a quantidade total de pacotes não excede a quantidade de pacotes inicial
-        totalPacotesInseridos += check;
-        if (totalPacotesInseridos > pacote) {
-          alert("Erro: A quantidade de pacotes inseridos excede o total de pacotes permitido.");
+        if (pacotesinseridos > pacote) {
+          alert("Erro: A quantidade de pacotes inseridos excede o total de pacotes inseridos.");
           return;
         }
   
@@ -245,8 +243,9 @@ function QRscanner() {
       }
     }
   
-    if (quantrest === 0 && totalPacotesInseridos === pacote) {
+    if (quantrest === 0 && pacotesinseridos === pacote) {
       doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
+      sendQRCodeDataToBackend(qrData);
       alert("Pdfs gerados com sucesso!");
     } else {
       alert(
