@@ -50,6 +50,7 @@ function StockPage() {
           <SentimentVeryDissatisfiedIcon style={{ fontSize: 50, color: "gray" }} /> 
           <Typography variant="h6" style={{ marginTop: 20 }}>
             Não foi possível conectar ao banco de dados
+            Tente novamente mais tarde
           </Typography>
         </div>
       ) : stockData.length === 0 ? (
@@ -76,13 +77,13 @@ function StockPage() {
             },
           }}
         >
-          {stockData.map((product, index) => (
-            <MenuItem key={index} value={product.codigo} className="menu-item">
-              {`${product.descricao} (Código: ${product.codigo})`}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+        {stockData.map((product, index) => (
+              <MenuItem key={index} value={product.codigo} style={{ whiteSpace: 'normal' }}>
+                {`${product.descricao} (Código: ${product.codigo})`}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       )}
       {selectedProduct && (
         <div style={{ marginTop: 20 , width: '100%', maxWidth: '450px' }}>
