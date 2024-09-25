@@ -43,7 +43,7 @@ function Identifier() {
           <ArrowBack />
         </Fab>
       </Link>
-      <span>QR Scanner</span>
+      <span>QR Identifier</span>
       <br />
       <br />
       <div style={{ display: 'flex', justifyContent: 'center' }}> {/* Contêiner centralizado */}
