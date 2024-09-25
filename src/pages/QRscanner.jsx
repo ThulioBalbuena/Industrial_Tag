@@ -10,16 +10,20 @@ import QRcode from "qrcode";
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
   let [valorNum, setValor] = useState(null); // Estado para valor inserido
+  const [scanSuccess, setScanSuccess] = useState(null); 
+
 
   const handleScan = (data) => {
     if (data) {
       setQrscan(data.text); 
+      setScanSuccess(true); 
       alert(data.text);
     }
   };
 
   const handleError = (err) => {
     console.error(err);
+    setScanSuccess(false); 
     if (err.name === "NotAllowedError") {
       alert("Permissão de câmera negada. Verifique as configurações do navegador.");
     }
@@ -70,8 +74,7 @@ function QRscanner() {
   
       if (!response.ok) {
         throw new Error(`Erro: ${response.statusText}`);
-      }
-  
+      }         
       const data = await response.json();
       alert(data.message || "Dados do QR Code salvos com sucesso!");  
     } catch (error) {
@@ -264,6 +267,12 @@ function QRscanner() {
     }
   };
 
+  const qrReaderStyle = {
+    border: scanSuccess === null ? '2px solid transparent' : scanSuccess ? '5px solid green' : '5px solid red',
+    height: 200,
+    width: 200,
+  };
+
   return (
     <div>
       <Link to="/">
@@ -279,7 +288,7 @@ function QRscanner() {
             delay={300}
             onError={handleError}
             onScan={handleScan}
-            style={{ height: 200, width: 200 }}
+            style={qrReaderStyle }           
             legacymode={true}
             constraints={{
               video: { facingMode: { exact: "environment" } } 
