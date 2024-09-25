@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2'; // Importa o Grid instável
 import Icon from '@mdi/react';  
-import { mdiQrcode, mdiQrcodeScan, mdiViewList, mdiWarehouse } from '@mdi/js'; // Adiciona mdiWarehouse para o estoque
+import { mdiQrcode, mdiQrcodeScan, mdiViewList, mdiPackageDown } from '@mdi/js'; // Adiciona mdiWarehouse para o estoque
 import { Link } from "react-router-dom";
 import "./logo.css";
 import AOS from 'aos';
@@ -47,10 +47,10 @@ function Home() {
                             <Button variant="contained" size="large" sx={{ backgroundColor: '#002171' }}>
                                 <Icon 
                                     style={{ padding: 10 }}
-                                    path={mdiWarehouse}
+                                    path={mdiPackageDown}
                                     title="Stock"
                                     size={10}
-                                    color="black"
+                                    color="white"
                                 />
                             </Button>
                         </Link>
@@ -80,7 +80,7 @@ function Home() {
                                     path={mdiQrcode}
                                     title="QR Generator"
                                     size={10}
-                                    color="black"
+                                    color="white"
                                 />
                             </Button>
                         </Link>
