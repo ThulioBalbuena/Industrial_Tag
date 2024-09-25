@@ -32,11 +32,14 @@ const headerStyle = {
     width: '100%', // Garante que o header ocupe a largura total da tela
     boxSizing: 'border-box' // Inclui o padding na largura total
   };
-  
 
 const titleStyle = {
   fontWeight: 'bold', // Deixa o título em negrito
   textShadow: '2px 2px 4px rgba(0, 0, 0, 0.3)', // Sombra no texto
+  display: 'flex', // Flex para alinhar o título e ícone
+  justifyContent: 'center', // Centraliza o conteúdo
+  alignItems: 'center', // Alinha verticalmente
+  gap: '10px' // Espaçamento entre título e ícone
 };
 
 const subtitleStyle = {
@@ -58,8 +61,7 @@ function Home() {
             <div style={headerStyle}>
                 <Typography variant="h2" style={titleStyle}>
                     Industrial Tag
-                    <Icon path={mdiTagMultiple} size={2} color="black" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))' }} 
-                    />
+                    <Icon path={mdiTagMultiple} size={2} color="black" style={{ filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3))' }} />
                 </Typography>
                 <Typography variant="h4" style={subtitleStyle}>
                     Generation & Scan
