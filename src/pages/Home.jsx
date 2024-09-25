@@ -26,11 +26,9 @@ const closeButtonStyle = {
 };
 
 const headerStyle = {
-    color: 'black', // Texto branco
-    padding: '20px 10px', // Reduzido o padding lateral, mantendo o espaçamento vertical
+    color: 'black', 
+    padding: '40px 0', // Espaçamento acima e abaixo do header
     textAlign: 'center', // Centraliza o texto
-    width: '100%', // Garante que o header ocupe a largura total da tela
-    boxSizing: 'border-box' // Inclui o padding na largura total
   };
   
 
