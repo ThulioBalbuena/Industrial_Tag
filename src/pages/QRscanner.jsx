@@ -9,21 +9,22 @@ import QRcode from "qrcode";
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
+  const [buttonColor, setButtonColor] = useState('#002171'); // Estado para cor do botão
   let [valorNum, setValor] = useState(null); // Estado para valor inserido
-  const [scanSuccess, setScanSuccess] = useState(null); 
-
 
   const handleScan = (data) => {
     if (data) {
       setQrscan(data.text); 
-      setScanSuccess(true); 
+      setButtonColor('#4CAF50'); // Escaneamento bem-sucedido
       alert(data.text);
     }
   };
 
   const handleError = (err) => {
     console.error(err);
-    setScanSuccess(false); 
+    if (!qrscan) {  // Verifica se já houve uma tentativa de escanear
+      setButtonColor('#f44336'); // Vermelho (erro) apenas se houver falha após tentativa
+    }
     if (err.name === "NotAllowedError") {
       alert("Permissão de câmera negada. Verifique as configurações do navegador.");
     }
@@ -74,7 +75,7 @@ function QRscanner() {
   
       if (!response.ok) {
         throw new Error(`Erro: ${response.statusText}`);
-      }         
+      }
       const data = await response.json();
       alert(data.message || "Dados do QR Code salvos com sucesso!");  
     } catch (error) {
@@ -267,12 +268,6 @@ function QRscanner() {
     }
   };
 
-  const qrReaderStyle = {
-    border: scanSuccess === null ? '2px solid transparent' : scanSuccess ? '5px solid green' : '5px solid red',
-    height: 200,
-    width: 200,
-  };
-
   return (
     <div>
       <Link to="/">
@@ -288,7 +283,7 @@ function QRscanner() {
             delay={300}
             onError={handleError}
             onScan={handleScan}
-            style={qrReaderStyle }           
+            style={{ height: 200, width: 200 }}
             legacymode={true}
             constraints={{
               video: { facingMode: { exact: "environment" } } 
@@ -316,7 +311,7 @@ function QRscanner() {
         <center>
           <Fab
             variant="extended"
-            sx={{ backgroundColor: '#002171' }}
+            sx={{ backgroundColor: buttonColor }}
             color="primary"
             aria-label="add"
             onClick={handleClick}
