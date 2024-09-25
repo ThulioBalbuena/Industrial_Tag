@@ -29,7 +29,7 @@ function StockPage() {
   }, []);
 
   const handleProductChange = (event) => {
-    setSelectedProduct(event.target.value);
+    setSelectedProduct(event.target.value);  // Mantém o código do produto selecionado
   };
 
   return (
@@ -49,8 +49,7 @@ function StockPage() {
         <div style={{ textAlign: "center", marginTop: 50 }}>
           <SentimentVeryDissatisfiedIcon style={{ fontSize: 50, color: "gray" }} /> 
           <Typography variant="h6" style={{ marginTop: 20 }}>
-            Não foi possível conectar ao banco de dados
-            Tente novamente mais tarde
+            Não foi possível conectar ao banco de dados. Tente novamente mais tarde.
           </Typography>
         </div>
       ) : stockData.length === 0 ? (
@@ -62,26 +61,26 @@ function StockPage() {
         </div>
       ) : (
         <FormControl variant="filled" style={{ marginTop: 20, width: '100%', maxWidth: '400px' }}>
-        <InputLabel id="product-select-label">Selecione o Produto</InputLabel>
-        <Select
-          labelId="product-select-label"
-          id="product-select"
-          value={selectedProduct}
-          onChange={handleProductChange}
-          renderValue={(selected) => null} // Esconde o item e volta ao tamanho normal
-          MenuProps={{
-            PaperProps: {
-              style: {
-                whiteSpace: 'normal', // Garante quebra de linha no dropdown
+          <InputLabel id="product-select-label">Selecione o Produto</InputLabel>
+          <Select
+            labelId="product-select-label"
+            id="product-select"
+            value={selectedProduct}
+            onChange={handleProductChange}
+            renderValue={(selected) => null} // Esconde o item e volta ao tamanho normal
+            MenuProps={{
+              PaperProps: {
+                style: {
+                  whiteSpace: 'normal', // Garante quebra de linha no dropdown
+                },
               },
-            },
-          }}
-        >
-        {stockData.map((product, index) => (
-              <MenuItem key={index} value={product.codigo} style={{ whiteSpace: 'normal' }}>
-                {`${product.descricao}`}
-              </MenuItem>
-            ))}
+            }}
+          >
+          {stockData.map((product, index) => (
+            <MenuItem key={index} value={product.codigo} style={{ whiteSpace: 'normal' }}> {/* Busca pelo código */}
+              {`${product.descricao}`} {/* Exibe a descrição */}
+            </MenuItem>
+          ))}
           </Select>
         </FormControl>
       )}
@@ -89,7 +88,7 @@ function StockPage() {
         <div style={{ marginTop: 20 , width: '100%', maxWidth: '450px' }}>
           <h3>Detalhes do Produto</h3>
           {stockData
-            .filter((product) => product.codigo === selectedProduct)
+            .filter((product) => product.codigo === selectedProduct) // Filtra pelo código
             .map((product, index) => (
               <div key={index}>
                 <p><strong>Descrição:</strong> {product.descricao}</p>

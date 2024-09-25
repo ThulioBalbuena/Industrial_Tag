@@ -94,13 +94,14 @@ function QRscanner() {
   
     // Organizando os dados para enviar ao MongoDB
     const qrData = {
-      codigo: resposta[0],
-      descricao: resposta[1],
+      descricao: resposta[0], 
+      codigo: resposta[1],    
       quantidade: resposta[4],
       localizacao: resposta[6],
       dataRecebimento: date,
       lote: resposta[5],
     };
+    
     
     var doc = new jsPDF({
       orientation: "landscape",
