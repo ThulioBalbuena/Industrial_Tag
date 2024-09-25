@@ -11,11 +11,13 @@ function QRscanner() {
   const [qrscan, setQrscan] = useState("");
   const [buttonColor, setButtonColor] = useState('#002171'); // Estado para cor do botão
   let [valorNum, setValor] = useState(null); // Estado para valor inserido
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleScan = (data) => {
     if (data) {
       setQrscan(data.text); 
       setButtonColor('#4CAF50'); // Escaneamento bem-sucedido
+      setIsButtonDisabled(false); 
       alert(data.text);
     }
   };
@@ -24,6 +26,7 @@ function QRscanner() {
     console.error(err);
     if (!qrscan) {  // Verifica se já houve uma tentativa de escanear
       setButtonColor('#f44336'); // Vermelho (erro) apenas se houver falha após tentativa
+      setIsButtonDisabled(true);
     }
     if (err.name === "NotAllowedError") {
       alert("Permissão de câmera negada. Verifique as configurações do navegador.");
@@ -31,7 +34,7 @@ function QRscanner() {
   };
 
   const handleChange = (event) => {
-    setQrscan(event.target.value);
+    setQrscan(event.target.value);  
   };
 
   // Função para reiniciar os campos após erro
@@ -311,10 +314,14 @@ function QRscanner() {
         <center>
           <Fab
             variant="extended"
-            sx={{ backgroundColor: buttonColor }}
+            sx={{ 
+              backgroundColor: buttonColor,
+              opacity: isButtonDisabled ? 0.5 : 1, // Transparência quando desabilitado
+              pointerEvents: isButtonDisabled ? 'none' : 'auto' // Desabilita o clique
+            }}
             color="primary"
             aria-label="add"
-            onClick={handleClick}
+            onClick={handleClick}                      
           >
             Salvar etiqueta(s)
           </Fab>
