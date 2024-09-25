@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Fab, TextField } from '@mui/material';
-import QrReader from 'react-qr-scanner';  // Certifique-se de que está importando corretamente
+import QrReader from 'react-qr-scanner';  
 import jsPDF from "jspdf";
 import { ArrowBack } from '@mui/icons-material';
 import { Link } from "react-router-dom";
@@ -9,10 +9,11 @@ import QRcode from "qrcode";
 
 function QRscanner() {
   const [qrscan, setQrscan] = useState("");
+  let [valorNum, setValor] = useState(null); // Estado para valor inserido
 
   const handleScan = (data) => {
     if (data) {
-      setQrscan(data.text); // Em react-qr-scanner, o texto do QR é acessado com .text
+      setQrscan(data.text); 
       alert(data.text);
     }
   };
@@ -23,10 +24,15 @@ function QRscanner() {
       alert("Permissão de câmera negada. Verifique as configurações do navegador.");
     }
   };
-  
 
   const handleChange = (event) => {
     setQrscan(event.target.value);
+  };
+
+  // Função para reiniciar os campos após erro
+  const resetFields = () => {
+    setValor(null);
+    alert("Valores redefinidos. Insira novamente.");
   };
 
   function getValue(string, j) {
@@ -52,9 +58,9 @@ function QRscanner() {
   }
 
   const sendQRCodeDataToBackend = async (qrData) => {
-   console.log("Dados enviados:", qrData); // Adicione este log para depuração
+    console.log("Dados enviados:", qrData); // Adicione este log para depuração
     try {
-      const response = await fetch("https://polar-island-40233-a2032bd06f30.herokuapp.com/api/qrcodes", {  // Ajuste a URL para o endpoint do Flask
+      const response = await fetch("https://polar-island-40233-a2032bd06f30.herokuapp.com/api/qrcodes", {  
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,31 +73,32 @@ function QRscanner() {
       }
   
       const data = await response.json();
-      alert(data.message || "Dados do QR Code salvos com sucesso!");  // Exibe a mensagem do back-end ou uma padrão
+      alert(data.message || "Dados do QR Code salvos com sucesso!");  
     } catch (error) {
       console.error("Erro ao enviar dados para o backend Python:", error);
     }
   };
-  
 
   const handleClick = () => {
-    var pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
+    var quantrest = resposta[4];  // Resetando quantrest para o valor original
+    var pacote = 0;
+    var auxx = 0;
+    var pacotesinseridos = 0;
+    var check = 0;
+    setValor(null)
+    pacote = parseInt(window.prompt("Digite a quantidade de pacotes: "), 10);
     if (isNaN(pacote) || pacote <= 0) {
       alert("Quantidade de pacotes inválida!");
       return;
     }
-  
+
     alert("VERIFIQUE se a quantidade de pacotes está correta: " + pacote);
-  
+
     var nome = 0;
     const date = new Date().toLocaleDateString();
-    var auxx = 0;
     var ajuda = quantrest / pacote;
-    var valor;
     var lote, fab;
-    var check;
-    var pacotesinseridos = 0;
-  
+
     // Organizando os dados para enviar ao MongoDB
     const qrData = {
       descricao: resposta[0], 
@@ -102,15 +109,14 @@ function QRscanner() {
       lote: resposta[5],
     };
     
-    
     var doc = new jsPDF({
       orientation: "landscape",
       unit: "mm",
       format: [100, 40],
     });
-  
+
     doc.deletePage(1);
-  
+
     for (var i = 0; i < pacote; i++) {
       if (quantrest > 0) {
         nome++;
@@ -125,26 +131,30 @@ function QRscanner() {
               ajuda
           );
         }
-  
-        valor = window.prompt("Digite o valor do pacote " + nome + ": ");
+
+        if(quantrest === 0){
+          return;
+        } else {
+          valorNum = parseFloat(window.prompt("Digite o valor do pacote " + nome + ": ")); // Tratando como número
+        }
+
         check = parseInt(window.prompt("Quantos pacotes contêm esse mesmo valor? "), 10);
         if (isNaN(check) || check <= 0) {
           alert("Quantidade de pacotes inválida!");
           return;
         }
-  
-        valor = valor.replace(",", ".");
-        valor = parseFloat(valor);
-  
+
+        // Converter para string para usar .replace()
+        let valorStr = valorNum.toString().replace(",", "."); 
+
         pacotesinseridos = pacotesinseridos + check;
-        // Verificar se a quantidade total de pacotes não excede a quantidade de pacotes inicial
         if (pacotesinseridos > pacote) {
           alert("Erro: A quantidade de pacotes inseridos excede o total de pacotes inseridos.");
           return;
         }
-  
-        while (valor > quantrest || valor <= 0 || isNaN(valor)) {
-          valor = parseFloat(
+
+        while (valorNum > quantrest || valorNum <= 0 || isNaN(valorNum)) {
+          valorNum = parseFloat(
             window.prompt(
               "Valor incoerente com o valor total do produto, digite novamente (valor restante: " +
                 quantrest +
@@ -157,25 +167,24 @@ function QRscanner() {
             return;
           }
         }
-  
-        quantrest = parseFloat((quantrest - valor * check).toFixed(2));
-  
-        // Verificar se a quantidade restante é negativa
+
+        quantrest = parseFloat((quantrest - valorNum * check).toFixed(2));
+
         if (quantrest < 0) {
           alert("Erro: Valor total do produto ultrapassado. Verifique os valores.");
-          return;  // Ao invés de recarregar a página, simplesmente exibe o alerta.
-        }        
-  
-        valor = valor.toString().replace(".", ",");
+          return;
+        }
+
+        valorStr = valorNum.toString().replace(".", ",");
 
         for (var j = 0; j < check; j++) {
           auxx++;
           doc.addPage();
-      
+
           // Gerar o PDF do pacote
           doc.setLineWidth(1);
           doc.rect(3, 3, 95, 35, "S");
-      
+
           doc.setLineWidth(0.5);
           doc.setFontSize(8.5);
           doc.setFont("helvetica");
@@ -210,7 +219,7 @@ function QRscanner() {
           doc.text(31, 36, auxx + " / " + pacote);         
           doc.text("Quantidade:", 60, 32);
           doc.setFontSize(10);
-          doc.text(valor, 60, 36);         
+          doc.text(valorStr, 60, 36);  // Usar valor como string       
           doc.setFontSize(8);
           doc.text(44, 32, "Unidade:");
           doc.text(44, 36, resposta[2]);          
@@ -222,9 +231,9 @@ function QRscanner() {
           doc.text(resposta[3], 48, 27);
 
           var qrElementArray = [...resposta]; 
-          qrElementArray[4] = valor.toString();
+          qrElementArray[4] = valorStr; // Usar como string
           var qrElement = qrElementArray.join('|');
-            
+
           if (qrElement) {
             let canvas = document.createElement('canvas');
             
@@ -242,7 +251,7 @@ function QRscanner() {
         }
       }
     }
-  
+
     if (quantrest === 0 && pacotesinseridos === pacote) {
       doc.save(resposta[7] + "/" + resposta[3] + "/" + nome + ".pdf");
       sendQRCodeDataToBackend(qrData);
@@ -251,11 +260,9 @@ function QRscanner() {
       alert(
         "Erro ao gerar pdfs: Verifique se a quantidade de peças é divisível pelo pacote!"
       );
-      window.location.reload();
+      resetFields();  // Reseta campos ao final se erro ocorrer
     }
   };
-  
-  
 
   return (
     <div>
@@ -272,9 +279,9 @@ function QRscanner() {
             onError={handleError}
             onScan={handleScan}
             style={{ height: 200, width: 200 }}
-            legacymode  ={true}
+            legacymode={true}
             constraints={{
-              video: { facingMode: { exact: "environment" } } // Força o uso da câmera traseira
+              video: { facingMode: { exact: "environment" } } 
             }}
           />
         </div>
