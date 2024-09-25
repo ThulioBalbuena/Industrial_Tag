@@ -183,7 +183,7 @@ function Home() {
 
             <br></br>
             <Typography variant="body2" color="text.secondary">
-                Designed & produced by Thúlio Balbuena
+                Clique aqui para obter ajuda
             </Typography>
         </div>
     );
