@@ -3,7 +3,7 @@ import {Fab, TextField} from '@mui/material'
 import Grid from '@mui/material/Grid2';
 import {ArrowBack, GetApp} from '@mui/icons-material'
 import { Link } from "react-router-dom";
-import QRcode from 'qrcode.react'
+import { QRCodeCanvas } from 'qrcode.react'
 
 function QRgenerator() {
     const [qr, setQr] = useState('Digite os dados aqui');
@@ -17,7 +17,7 @@ function QRgenerator() {
           .replace("image/png", "image/octet-stream");
         let downloadLink = document.createElement("a");
         downloadLink.href = pngUrl;
-        downloadLink.download = "myqr.png";
+        downloadLink.download = "tagQR.png";
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
@@ -41,11 +41,11 @@ function QRgenerator() {
             <div>
                 {
                     qr ?
-                    <QRcode 
+                    <QRCodeCanvas 
                         id="myqr"
                         value={qr} 
                         size={75}
-                        includeMargin={true}
+                        includeMargin={false}
                     /> :
                     <p>Aguardando dados...</p>
                 }

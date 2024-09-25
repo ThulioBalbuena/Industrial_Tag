@@ -2,7 +2,7 @@
 width: 100%;
 height: 100%;
 display: flex;
-background-color: #ffffffa2;
+background-color:#F2EDDB;
 align-items: center;
 justify-content: center;
 font-size: calc(10px + 2vmin);
@@ -24,7 +24,7 @@ text-overflow: clip; /* Exibe o conteúdo completo sem truncamento */
 }
 
 .App-header {
-  background-color: #ffffffa2;
+  background-color: #F2EDDB;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
